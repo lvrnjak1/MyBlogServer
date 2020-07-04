@@ -1,0 +1,103 @@
+schema {
+    query: Query
+    mutation: Mutation
+    #subscription: Subscription
+}
+
+type Query{
+    getUsers: [User]
+    getAccounts: [Account]
+    getPosts: [Post]
+    getLikes: [Like]
+    getFollowings: [Follow]
+}
+
+type Mutation{
+    addUser(user: UserInput): User
+    addAccount(account: AccountInput): Account
+    addPost(post: PostInput): Post
+    addLike(like: LikeInput): Like
+    addFollowing(follow: FollowInput): Follow
+}
+
+#type Subscription{
+#}
+
+#Custom types
+#scalar Date
+
+type User{
+    id: ID!
+    username: String!
+    password: String!
+    email: String!
+}
+
+type Account{
+    id: ID!
+    name: String!
+    surname: String!
+    bio: String
+    #dateOfBirth: Date
+    user: User!
+    posts: [Post!]
+    followers: [Account!]
+    following: [Account!]
+}
+
+type Post{
+    id: ID!
+    title: String
+    body: String!
+    #dateTimePosted: Date
+    author: Account!
+    likes: [Like]
+}
+
+type Like{
+    id: ID!
+    account: Account!
+    post: Post!
+}
+
+type Follow{
+    id: ID!
+    follower: Account!
+    followee: Account!
+}
+
+#input types
+input UserInput{
+    username: String!
+    password: String!
+    email: String!
+}
+
+input AccountInput{
+    name: String!
+    surname: String!
+    bio: String
+    #dateOfBirth: Date
+    userId: ID!
+}
+
+input PostInput{
+    title: String
+    body: String!
+    #dateTimePosted: Date
+    authorId: ID!
+}
+
+input LikeInput{
+    accountId: ID!
+    postId: ID!
+}
+
+input FollowInput{
+    followerId: ID!
+    followeeId: ID!
+}
+
+#ideas
+#stream of all of your followers' posts
+#stream of all of your followers' followings
