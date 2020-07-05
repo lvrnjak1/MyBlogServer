@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL}
+    url: jdbc:postgresql://localhost:5432/myblogdb #${JDBC_DATABASE_URL}
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
   jpa:
@@ -12,5 +12,5 @@ spring:
             non_contextual_creation: true
     hibernate:
       ddl-auto: update
-#  flyway:
-#    baseline-on-migrate: true
+  flyway:
+    baseline-on-migrate: true

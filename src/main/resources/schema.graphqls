@@ -6,18 +6,18 @@ schema {
 
 type Query{
     getUsers: [User]
-    getAccounts: [Account]
-    getPosts: [Post]
-    getLikes: [Like]
-    getFollowings: [Follow]
+#    getAccounts: [Account]
+#    getPosts: [Post]
+#    getLikes: [Like]
+#    getFollowings: [Follow]
 }
 
 type Mutation{
-    addUser(user: UserInput): User
-    addAccount(account: AccountInput): Account
-    addPost(post: PostInput): Post
-    addLike(like: LikeInput): Like
-    addFollowing(follow: FollowInput): Follow
+    createAccount(account: AccountInput): Account
+#    addAccount(account: AccountInput): Account
+#    addPost(post: PostInput): Post
+#    addLike(like: LikeInput): Like
+#    addFollowing(follow: FollowInput): Follow
 }
 
 #type Subscription{
@@ -40,9 +40,9 @@ type Account{
     bio: String
     #dateOfBirth: Date
     user: User!
-    posts: [Post!]
-    followers: [Account!]
-    following: [Account!]
+#    posts: [Post!]
+#    followers: [Account!]
+#    following: [Account!]
 }
 
 type Post{
@@ -78,7 +78,7 @@ input AccountInput{
     surname: String!
     bio: String
     #dateOfBirth: Date
-    userId: ID!
+    user: UserInput
 }
 
 input PostInput{
@@ -96,6 +96,11 @@ input LikeInput{
 input FollowInput{
     followerId: ID!
     followeeId: ID!
+}
+
+input AuthData{
+    username: String!
+    password: String!
 }
 
 #ideas

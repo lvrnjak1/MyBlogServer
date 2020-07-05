@@ -8,7 +8,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
 
 @Entity
 @Table(name = "accounts")
@@ -26,8 +25,8 @@ public class Account {
     private String surname;
     private String bio;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
+//    @Temporal(TemporalType.DATE)
+//    private Date dateOfBirth;
 
     @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
