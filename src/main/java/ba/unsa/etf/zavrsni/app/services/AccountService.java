@@ -6,6 +6,8 @@ import ba.unsa.etf.zavrsni.app.model.User;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
@@ -21,5 +23,9 @@ public class AccountService {
         User user = account.getUser();
         userService.save(user);
         return accountRepository.save(account);
+    }
+
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
     }
 }

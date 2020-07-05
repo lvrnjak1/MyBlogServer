@@ -6,17 +6,16 @@ schema {
 
 type Query{
     getUsers: [User]
-#    getAccounts: [Account]
-#    getPosts: [Post]
+    getAccounts: [Account]
+    getPosts: [Post]
 #    getLikes: [Like]
 #    getFollowings: [Follow]
 }
 
 type Mutation{
     createAccount(account: AccountInput): Account
-#    addAccount(account: AccountInput): Account
-#    addPost(post: PostInput): Post
-#    addLike(like: LikeInput): Like
+    addPost(post: PostInput): Post
+    addLike(like: LikeInput): Like
 #    addFollowing(follow: FollowInput): Follow
 }
 
@@ -40,7 +39,7 @@ type Account{
     bio: String
     #dateOfBirth: Date
     user: User!
-#    posts: [Post!]
+    posts: [Post!]
 #    followers: [Account!]
 #    following: [Account!]
 }

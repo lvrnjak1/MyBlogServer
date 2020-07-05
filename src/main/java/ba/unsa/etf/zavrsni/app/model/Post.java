@@ -9,7 +9,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Entity
 @Table(name = "posts")
@@ -25,8 +24,8 @@ public class Post {
     @NotBlank
     private String body;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateTimePosted;
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date dateTimePosted;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
