@@ -1,5 +1,6 @@
 package ba.unsa.etf.zavrsni.app.services;
 
+import ba.unsa.etf.zavrsni.app.exceptions.ResourceAlreadyInUse;
 import ba.unsa.etf.zavrsni.app.input.AccountInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.User;
@@ -16,10 +17,24 @@ public class AccountService {
     private final UserService userService;
 
     public Account createNewAccount(AccountInput accountInput) {
+        checkUsernameAvailability(accountInput.getUser().getUsername());
+        checkEmailUsage(accountInput.getUser().getEmail());
         Account account = accountInput.castToAccount();
         User user = account.getUser();
         userService.save(user);
         return accountRepository.save(account);
+    }
+
+    private void checkUsernameAvailability(String username) {
+        if(userService.findByUsername(username).isPresent()){
+            throw new ResourceAlreadyInUse("This username is not available");
+        }
+    }
+
+    private void checkEmailUsage(String email) {
+        if(userService.findByEmail(email).isPresent()){
+            throw new ResourceAlreadyInUse("Email already in use");
+        }
     }
 
     public List<Account> getAllAccounts() {

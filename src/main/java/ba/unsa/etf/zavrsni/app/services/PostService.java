@@ -8,7 +8,6 @@ import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.PostRepository;
 import ba.unsa.etf.zavrsni.app.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +27,9 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    //TODO error handling
-    @SneakyThrows
     private Post postInputToPost(PostInput postInput) {
         Account author = accountRepository.findById(postInput.getAuthorId())
-                .orElseThrow(() -> new ResourceNotFoundException("Author with this id doesn't exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("Author doesn't exist"));
         return new Post(null, postInput.getTitle(), postInput.getBody(),
                 DateUtil.parseTimestamp(postInput.getDateTimePosted()), author);
 

@@ -1,5 +1,7 @@
 package ba.unsa.etf.zavrsni.app.services;
 
+import ba.unsa.etf.zavrsni.app.exceptions.RedundantOperationException;
+import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.input.FollowInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Follow;
@@ -32,15 +34,22 @@ public class FollowService {
     }
 
     public Follow addFollowRelation(FollowInput followInput) {
-        return followRepository.save(fromFollowInputToFollow(followInput));
+        Follow follow = fromFollowInputToFollow(followInput);
+        if(followRepository.findByFollowerAndFollowee(follow.getFollower(), follow.getFollowee()).isPresent()){
+            throw new RedundantOperationException("Account already followed");
+        }
+        return followRepository.save(follow);
     }
 
     private Follow fromFollowInputToFollow(FollowInput followInput) {
-        //TODO error handling
         Account follower = accountRepository.findById(followInput.getFollowerId())
-                .orElseThrow();
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Invalid follower account")
+                );
         Account followee = accountRepository.findById(followInput.getFolloweeId())
-                .orElseThrow();
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Invalid followee account")
+                );
         return new Follow(null, follower, followee);
     }
 }
