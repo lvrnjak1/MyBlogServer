@@ -7,20 +7,17 @@ import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.PostRepository;
 import ba.unsa.etf.zavrsni.app.utils.DateUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
     private final AccountRepository accountRepository;
-
-    public PostService(PostRepository postRepository, AccountRepository accountRepository) {
-        this.postRepository = postRepository;
-        this.accountRepository = accountRepository;
-    }
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();

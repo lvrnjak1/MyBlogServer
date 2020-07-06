@@ -5,17 +5,15 @@ import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.services.LikeService;
 import com.coxautodev.graphql.tools.GraphQLResolver;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class PostResolver implements GraphQLResolver<Post> {
     private final LikeService likeService;
-
-    public PostResolver(LikeService likeService) {
-        this.likeService = likeService;
-    }
 
     public Account author(Post post){
         return post.getAuthor();

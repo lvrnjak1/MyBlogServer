@@ -13,24 +13,16 @@ import ba.unsa.etf.zavrsni.app.services.FollowService;
 import ba.unsa.etf.zavrsni.app.services.LikeService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class Mutation implements GraphQLMutationResolver {
     private final AccountService accountService;
     private final PostService postService;
     private final LikeService likeService;
     private final FollowService followService;
-
-    public Mutation(AccountService accountService,
-                    PostService postService,
-                    LikeService likeService,
-                    FollowService followService) {
-        this.accountService = accountService;
-        this.postService = postService;
-        this.likeService = likeService;
-        this.followService = followService;
-    }
 
     public Account createAccount(AccountInput accountInput){
         return accountService.createNewAccount(accountInput);

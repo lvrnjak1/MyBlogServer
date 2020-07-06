@@ -7,23 +7,17 @@ import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.FollowService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import com.coxautodev.graphql.tools.GraphQLResolver;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class AccountResolver implements GraphQLResolver<Account> {
     private final AccountService accountService;
     private final PostService postService;
     private final FollowService followService;
-
-    public AccountResolver(AccountService accountService,
-                           PostService postService,
-                           FollowService followService) {
-        this.accountService = accountService;
-        this.postService = postService;
-        this.followService = followService;
-    }
 
     public User user(Account account){
         return  account.getUser();

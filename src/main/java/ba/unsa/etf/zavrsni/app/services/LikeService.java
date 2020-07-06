@@ -7,23 +7,17 @@ import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.LikeRepository;
 import ba.unsa.etf.zavrsni.app.repositories.PostRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class LikeService {
     private final LikeRepository likeRepository;
     private final AccountRepository accountRepository;
     private final PostRepository postRepository;
-
-    public LikeService(LikeRepository likeRepository,
-                       AccountRepository accountRepository,
-                       PostRepository postRepository) {
-        this.likeRepository = likeRepository;
-        this.accountRepository = accountRepository;
-        this.postRepository = postRepository;
-    }
 
     public Like addLike(LikeInput likeInput) {
         Like like = fromLikeInputToLike(likeInput);

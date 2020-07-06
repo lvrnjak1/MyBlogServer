@@ -7,21 +7,17 @@ import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import ba.unsa.etf.zavrsni.app.services.UserService;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class Query implements GraphQLQueryResolver {
     private final UserService userService;
     private final AccountService accountService;
     private final PostService postService;
-
-    public Query(UserService userService, AccountService accountService, PostService postService) {
-        this.userService = userService;
-        this.accountService = accountService;
-        this.postService = postService;
-    }
 
     public List<User> getUsers(){
         return userService.getAllUsers();
