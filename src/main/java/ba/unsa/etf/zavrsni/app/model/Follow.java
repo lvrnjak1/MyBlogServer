@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowRelation {
+public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

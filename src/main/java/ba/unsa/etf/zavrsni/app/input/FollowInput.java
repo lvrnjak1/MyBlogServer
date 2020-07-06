@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostInput {
-    private String title;
-    private String body;
-    private String dateTimePosted;
-    private Long authorId;
+public class FollowInput {
+    private Long followerId;
+    private Long followeeId;
 }

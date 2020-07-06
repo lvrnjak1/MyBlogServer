@@ -24,4 +24,8 @@ public class PostResolver implements GraphQLResolver<Post> {
     public List<Like> likes(Post post){
         return likeService.getAllLikesForPost(post);
     }
+
+    public String dateTimePosted(Post post){
+        return String.valueOf(post.getDateTimePosted().getTime());
+    }
 }

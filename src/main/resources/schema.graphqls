@@ -16,7 +16,7 @@ type Mutation{
     createAccount(account: AccountInput): Account
     addPost(post: PostInput): Post
     addLike(like: LikeInput): Like
-#    addFollowing(follow: FollowInput): Follow
+    addFollowing(follow: FollowInput): Follow
 }
 
 #type Subscription{
@@ -40,15 +40,15 @@ type Account{
     #dateOfBirth: Date
     user: User!
     posts: [Post!]
-#    followers: [Account!]
-#    following: [Account!]
+    followers: [Account!]
+    following: [Account!]
 }
 
 type Post{
     id: ID!
     title: String
     body: String!
-    #dateTimePosted: Date
+    dateTimePosted: String!
     author: Account!
     likes: [Like]
 }
@@ -83,7 +83,8 @@ input AccountInput{
 input PostInput{
     title: String
     body: String!
-    #dateTimePosted: Date
+    #Long timestamp sent as a string
+    dateTimePosted: String!
     authorId: ID!
 }
 
