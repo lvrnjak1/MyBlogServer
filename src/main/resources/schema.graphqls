@@ -1,7 +1,7 @@
 schema {
     query: Query
     mutation: Mutation
-    #subscription: Subscription
+    subscription: Subscription
 }
 
 type Query{
@@ -19,9 +19,9 @@ type Mutation{
     addFollowing(follow: FollowInput): Follow
 }
 
-#type Subscription{
-#    newPost(author: ID!): Post
-#}
+type Subscription{
+    newPost: Post
+}
 
 #Custom types
 

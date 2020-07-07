@@ -7,6 +7,7 @@ import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.PostRepository;
 import ba.unsa.etf.zavrsni.app.utils.DateUtil;
+import ba.unsa.etf.zavrsni.app.utils.NewPostPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,16 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepository;
     private final AccountRepository accountRepository;
+    private final NewPostPublisher newPostPublisher;
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
 
     public Post addPost(PostInput postInput) {
-        Post post = postInputToPost(postInput);
-        return postRepository.save(post);
+        Post post =  postRepository.save( postInputToPost(postInput));
+        newPostPublisher.publish(post);
+        return post;
     }
 
     private Post postInputToPost(PostInput postInput) {
