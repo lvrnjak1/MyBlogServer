@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class NewPostPublisher {
     private final Flowable<Post> publisher;
-
     private ObservableEmitter<Post> emitter;
 
     public NewPostPublisher() {
@@ -21,8 +20,6 @@ public class NewPostPublisher {
 
         ConnectableObservable<Post> connectableObservable = newPostObservable.share().publish();
         connectableObservable.connect();
-
-
         publisher = connectableObservable.toFlowable(BackpressureStrategy.BUFFER);
     }
 
@@ -30,9 +27,7 @@ public class NewPostPublisher {
         emitter.onNext(post);
     }
 
-
     public Flowable<Post> getPublisher() {
         return publisher;
     }
-
 }
