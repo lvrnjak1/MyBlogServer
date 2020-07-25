@@ -25,6 +25,7 @@ public class AccountService {
         Account account = accountInput.castToAccount();
         User user = account.getUser();
         //userService.encodePWAndSave(user);
+        userService.save(user);
         return accountRepository.save(account);
     }
 
@@ -52,6 +53,13 @@ public class AccountService {
         return accountRepository.findByUser_Username(username)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Account with this username doesn't exist")
+                );
+    }
+
+    public Account getAccountByUserId(Long id) {
+        return accountRepository.findByUser_Id(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Invalid user")
                 );
     }
 }

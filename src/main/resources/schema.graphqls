@@ -7,7 +7,8 @@ schema {
 type Query{
     getUsers: [User]
     getAccounts: [Account]
-    getPosts: [Post]
+    #posts of all the people you follow
+    getPostsByFollowing: [Post]
 #    getLikes: [Like]
 #    getFollowings: [Follow]
 }

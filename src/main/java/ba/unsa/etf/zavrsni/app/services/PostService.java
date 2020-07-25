@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final AccountRepository accountRepository;
     private final NewPostPublisher newPostPublisher;
+    private final FollowService followService;
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
@@ -40,5 +42,13 @@ public class PostService {
 
     public List<Post> getAllPostsByAccount(Account account) {
         return postRepository.findAllByAuthor(account);
+    }
+
+    public List<Post> getAllPostsByFollowing(Account currentUser) {
+        return followService.getAllAccountFollowedBy(currentUser)
+                .stream()
+                .map(this::getAllPostsByAccount)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 }
