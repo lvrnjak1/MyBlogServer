@@ -1,13 +1,11 @@
 package ba.unsa.etf.zavrsni.app.resolver;
 
-import ba.unsa.etf.zavrsni.app.input.AccountInput;
-import ba.unsa.etf.zavrsni.app.input.FollowInput;
-import ba.unsa.etf.zavrsni.app.input.LikeInput;
-import ba.unsa.etf.zavrsni.app.input.PostInput;
+import ba.unsa.etf.zavrsni.app.input.*;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Follow;
 import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
+import ba.unsa.etf.zavrsni.app.output.SignInPayload;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.FollowService;
 import ba.unsa.etf.zavrsni.app.services.LikeService;
@@ -38,5 +36,9 @@ public class Mutation implements GraphQLMutationResolver {
 
     public Follow addFollowing(FollowInput followInput){
         return followService.addFollowRelation(followInput);
+    }
+
+    public SignInPayload signIn(AuthData authData){
+        return accountService.signInUser(authData);
     }
 }

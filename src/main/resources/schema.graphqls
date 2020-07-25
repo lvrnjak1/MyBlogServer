@@ -14,6 +14,7 @@ type Query{
 
 type Mutation{
     createAccount(account: AccountInput): Account
+    signIn(authData: AuthData): SignInPayload
     addPost(post: PostInput): Post
     addLike(like: LikeInput): Like
     addFollowing(follow: FollowInput): Follow
@@ -103,6 +104,10 @@ input AuthData{
     password: String!
 }
 
+type SignInPayload{
+    token: String!
+    account: Account!
+}
 #ideas
 #stream of all of your followers' posts
 #stream of all of your followers' followings

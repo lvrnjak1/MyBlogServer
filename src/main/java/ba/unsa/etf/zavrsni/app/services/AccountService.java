@@ -1,9 +1,12 @@
 package ba.unsa.etf.zavrsni.app.services;
 
 import ba.unsa.etf.zavrsni.app.exceptions.ResourceAlreadyInUse;
+import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.input.AccountInput;
+import ba.unsa.etf.zavrsni.app.input.AuthData;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.User;
+import ba.unsa.etf.zavrsni.app.output.SignInPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,7 @@ public class AccountService {
         checkEmailUsage(accountInput.getUser().getEmail());
         Account account = accountInput.castToAccount();
         User user = account.getUser();
-        userService.save(user);
+        //userService.encodePWAndSave(user);
         return accountRepository.save(account);
     }
 
@@ -39,5 +42,16 @@ public class AccountService {
 
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
+    }
+
+    public SignInPayload signInUser(AuthData authData) {
+        return userService.authenticateUser(authData);
+    }
+
+    private Account findByUsername(String username) {
+        return accountRepository.findByUser_Username(username)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Account with this username doesn't exist")
+                );
     }
 }
