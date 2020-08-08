@@ -62,4 +62,10 @@ public class AccountService {
                         () -> new ResourceNotFoundException("Invalid user")
                 );
     }
+
+    public Account getAccountById(Long accountId) {
+        return accountRepository.findById(accountId).orElseThrow(
+                () -> new ResourceNotFoundException("Account doesn't exist")
+        );
+    }
 }

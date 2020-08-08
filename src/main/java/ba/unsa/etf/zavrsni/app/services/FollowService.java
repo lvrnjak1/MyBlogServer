@@ -2,7 +2,6 @@ package ba.unsa.etf.zavrsni.app.services;
 
 import ba.unsa.etf.zavrsni.app.exceptions.RedundantOperationException;
 import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
-import ba.unsa.etf.zavrsni.app.input.FollowInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Follow;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
@@ -11,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,23 +33,33 @@ public class FollowService {
                 .collect(Collectors.toList());
     }
 
-    public Follow addFollowRelation(FollowInput followInput) {
-        Follow follow = fromFollowInputToFollow(followInput);
+    public Follow addFollowRelation(Long followeeId, Account follower) {
+        Follow follow = castToFollow(followeeId, follower);
         if(followRepository.findByFollowerAndFollowee(follow.getFollower(), follow.getFollowee()).isPresent()){
             throw new RedundantOperationException("Account already followed");
         }
         return followRepository.save(follow);
     }
 
-    private Follow fromFollowInputToFollow(FollowInput followInput) {
-        Account follower = accountRepository.findById(followInput.getFollowerId())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("Invalid follower account")
-                );
-        Account followee = accountRepository.findById(followInput.getFolloweeId())
+    private Follow castToFollow(Long followeeId, Account follower) {
+        Account followee = accountRepository.findById(followeeId)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Invalid followee account")
                 );
         return new Follow(null, follower, followee);
+    }
+
+    public Follow toggleFollow(Long followeeId, Account follower) {
+        Optional<Follow> follow = followRepository.findByFollower_IdAndFollowee_Id(follower.getId(), followeeId);
+        if(follow.isEmpty()){
+            return addFollowRelation(followeeId, follower);
+        }
+
+        removeFollow(follow.get());
+        return null;
+    }
+
+    private void removeFollow(Follow follow) {
+        followRepository.delete(follow);
     }
 }

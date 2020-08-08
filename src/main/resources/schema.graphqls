@@ -5,13 +5,10 @@ schema {
 }
 
 type Query{
-    getUsers: [User]
-    #getAccounts: [Account]
     getAccount: Account
     #posts of all the people you follow
     getPostsByFollowing: [Post]
-#    getLikes: [Like]
-#    getFollowings: [Follow]
+    getAccountById(accountId: ID!): Account
 }
 
 type Mutation{
@@ -19,7 +16,7 @@ type Mutation{
     signIn(authData: AuthData): SignInPayload
     addPost(post: PostInput): Post
     addLike(like: LikeInput): Like
-    addFollowing(follow: FollowInput): Follow
+    toggleFollow(followeeId: ID!): Follow
 }
 
 type Subscription{
@@ -94,11 +91,6 @@ input PostInput{
 input LikeInput{
     accountId: ID!
     postId: ID!
-}
-
-input FollowInput{
-    followerId: ID!
-    followeeId: ID!
 }
 
 input AuthData{

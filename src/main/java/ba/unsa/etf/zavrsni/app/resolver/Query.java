@@ -2,7 +2,6 @@ package ba.unsa.etf.zavrsni.app.resolver;
 
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
-import ba.unsa.etf.zavrsni.app.model.User;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import ba.unsa.etf.zavrsni.app.services.UserService;
@@ -22,14 +21,6 @@ public class Query implements GraphQLQueryResolver {
     private final PostService postService;
     private final AuthContext authContext;
 
-    public List<User> getUsers(){
-        return userService.getAllUsers();
-    }
-
-    public List<Account> getAccounts(){
-        return accountService.getAllAccounts();
-    }
-
     public Account getAccount(DataFetchingEnvironment environment){
         return authContext.getSignedInAccount(environment);
     }
@@ -38,5 +29,9 @@ public class Query implements GraphQLQueryResolver {
         return postService.getAllPostsByFollowing(
                 authContext.getSignedInAccount(environment)
         );
+    }
+
+    public Account getAccountById(Long accountId){
+        return accountService.getAccountById(accountId);
     }
 }
