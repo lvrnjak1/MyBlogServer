@@ -30,6 +30,10 @@ public class Query implements GraphQLQueryResolver {
         return accountService.getAllAccounts();
     }
 
+    public Account getAccount(DataFetchingEnvironment environment){
+        return authContext.getSignedInAccount(environment);
+    }
+
     public List<Post> getPostsByFollowing(DataFetchingEnvironment environment){
         return postService.getAllPostsByFollowing(
                 authContext.getSignedInAccount(environment)

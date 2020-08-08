@@ -11,5 +11,4 @@ public class PostInput {
     private String title;
     private String body;
     private String dateTimePosted;
-    private Long authorId;
 }

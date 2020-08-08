@@ -10,7 +10,9 @@ import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.FollowService;
 import ba.unsa.etf.zavrsni.app.services.LikeService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
+import ba.unsa.etf.zavrsni.app.utils.AuthContext;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +23,14 @@ public class Mutation implements GraphQLMutationResolver {
     private final PostService postService;
     private final LikeService likeService;
     private final FollowService followService;
+    private final AuthContext authContext;
 
     public Account createAccount(AccountInput accountInput){
         return accountService.createNewAccount(accountInput);
     }
 
-    public Post addPost(PostInput postInput){
-        return postService.addPost(postInput);
+    public Post addPost(PostInput postInput, DataFetchingEnvironment environment){
+        return postService.addPost(postInput, authContext.getSignedInAccount(environment));
     }
 
     public Like addLike(LikeInput likeInput){
