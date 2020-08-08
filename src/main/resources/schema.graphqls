@@ -15,8 +15,11 @@ type Mutation{
     createAccount(account: AccountInput): Account
     signIn(authData: AuthData): SignInPayload
     addPost(post: PostInput): Post
-    addLike(like: LikeInput): Like
+    editPost(postId: ID, newTitle: String, newBody: String): Post
+#    deletePost(postId: ID): StatusPayload
+#    addLike(like: LikeInput): Like
     toggleFollow(followeeId: ID!): Follow
+
 }
 
 type Subscription{
@@ -102,6 +105,14 @@ type SignInPayload{
     token: String!
     account: Account!
 }
+
+type StatusPayload{
+    message: String!
+    action: String!
+    sucess: Boolean!
+}
+
+
 #ideas
 #stream of all of your followers' posts
 #stream of all of your followers' followings

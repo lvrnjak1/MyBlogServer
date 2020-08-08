@@ -36,6 +36,10 @@ public class Mutation implements GraphQLMutationResolver {
         return postService.addPost(postInput, authContext.getSignedInAccount(environment));
     }
 
+    public Post editPost(Long postId, String newTitle, String newBody,  DataFetchingEnvironment environment){
+        return postService.editPost(postId, newTitle, newBody, authContext.getSignedInAccount(environment));
+    }
+
     public Like addLike(LikeInput likeInput){
         return likeService.addLike(likeInput);
     }

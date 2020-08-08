@@ -1,5 +1,6 @@
 package ba.unsa.etf.zavrsni.app.services;
 
+import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.input.PostInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
@@ -47,5 +48,15 @@ public class PostService {
                 .map(this::getAllPostsByAccount)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
+    }
+
+    public Post editPost(Long postId, String newTitle, String newBody, Account signedInAccount) {
+        Post post = postRepository.findByIdAndAuthor_Id(postId, signedInAccount.getId())
+                .orElseThrow(
+                () -> new ResourceNotFoundException("Post doesn't exist")
+        );
+        post.setTitle(newTitle);
+        post.setBody(newBody);
+        return postRepository.save(post);
     }
 }
