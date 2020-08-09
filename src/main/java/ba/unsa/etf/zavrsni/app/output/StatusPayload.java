@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class StatusPayload {
     private String message;
     private String action;
-    private Boolean success;
+    private boolean success;
 }

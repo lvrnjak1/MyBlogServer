@@ -4,6 +4,7 @@ import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.input.PostInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
+import ba.unsa.etf.zavrsni.app.output.StatusPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.PostRepository;
 import ba.unsa.etf.zavrsni.app.utils.DateUtil;
@@ -58,5 +59,15 @@ public class PostService {
         post.setTitle(newTitle);
         post.setBody(newBody);
         return postRepository.save(post);
+    }
+
+    public StatusPayload deletePostByAuthor(Long postId, Account signedInAccount) {
+        Post post = postRepository.findByIdAndAuthor_Id(postId, signedInAccount.getId())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Post doesn't exist")
+                );
+
+        postRepository.delete(post);
+        return new StatusPayload("Successfully deleted the post", "DELETE_POST", true);
     }
 }

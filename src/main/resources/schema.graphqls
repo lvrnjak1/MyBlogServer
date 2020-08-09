@@ -16,7 +16,7 @@ type Mutation{
     signIn(authData: AuthData): SignInPayload
     addPost(post: PostInput): Post
     editPost(postId: ID, newTitle: String, newBody: String): Post
-#    deletePost(postId: ID): StatusPayload
+    deletePost(postId: ID): StatusPayload
 #    addLike(like: LikeInput): Like
     toggleFollow(followeeId: ID!): Follow
 
@@ -109,7 +109,7 @@ type SignInPayload{
 type StatusPayload{
     message: String!
     action: String!
-    sucess: Boolean!
+    success: Boolean!
 }
 
 

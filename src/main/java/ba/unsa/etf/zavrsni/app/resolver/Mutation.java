@@ -9,6 +9,7 @@ import ba.unsa.etf.zavrsni.app.model.Follow;
 import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.output.SignInPayload;
+import ba.unsa.etf.zavrsni.app.output.StatusPayload;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.FollowService;
 import ba.unsa.etf.zavrsni.app.services.LikeService;
@@ -16,6 +17,7 @@ import ba.unsa.etf.zavrsni.app.services.PostService;
 import ba.unsa.etf.zavrsni.app.utils.AuthContext;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -38,6 +40,10 @@ public class Mutation implements GraphQLMutationResolver {
 
     public Post editPost(Long postId, String newTitle, String newBody,  DataFetchingEnvironment environment){
         return postService.editPost(postId, newTitle, newBody, authContext.getSignedInAccount(environment));
+    }
+
+    public StatusPayload deletePost(Long postId, DataFetchingEnvironment environment){
+        return postService.deletePostByAuthor(postId, authContext.getSignedInAccount(environment));
     }
 
     public Like addLike(LikeInput likeInput){
