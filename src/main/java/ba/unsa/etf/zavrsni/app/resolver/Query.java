@@ -34,4 +34,8 @@ public class Query implements GraphQLQueryResolver {
     public Account getAccountById(Long accountId){
         return accountService.getAccountById(accountId);
     }
+
+    public Post getPostById(Long postId){
+        return postService.findById(postId);
+    }
 }

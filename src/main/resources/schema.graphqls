@@ -9,6 +9,7 @@ type Query{
     #posts of all the people you follow
     getPostsByFollowing: [Post]
     getAccountById(accountId: ID!): Account
+    getPostById(postId: ID!): Post
 }
 
 type Mutation{
@@ -17,9 +18,8 @@ type Mutation{
     addPost(post: PostInput): Post
     editPost(postId: ID, newTitle: String, newBody: String): Post
     deletePost(postId: ID): StatusPayload
-#    addLike(like: LikeInput): Like
+    toggleLike(postId: ID): LikeResponse
     toggleFollow(followeeId: ID!): Follow
-
 }
 
 type Subscription{
@@ -53,6 +53,7 @@ type Post{
     body: String!
     dateTimePosted: String!
     author: Account!
+    numberOfLikes: Int
     likes: [Like]
 }
 
@@ -91,10 +92,10 @@ input PostInput{
     #authorId: ID!
 }
 
-input LikeInput{
-    accountId: ID!
-    postId: ID!
-}
+#input LikeInput{
+#    accountId: ID!
+#    postId: ID!
+#}
 
 input AuthData{
     username: String!
@@ -112,6 +113,7 @@ type StatusPayload{
     success: Boolean!
 }
 
+union LikeResponse = Like | StatusPayload
 
 #ideas
 #stream of all of your followers' posts

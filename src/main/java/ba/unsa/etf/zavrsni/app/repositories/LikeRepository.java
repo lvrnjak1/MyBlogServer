@@ -1,6 +1,5 @@
 package ba.unsa.etf.zavrsni.app.repositories;
 
-import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
-    Optional<Like> findByAccountAndLikedPost(Account account, Post post);
+    Optional<Like> findByAccount_IdAndLikedPost_Id(Long accountId, Long postId);
     List<Like> findAllByLikedPost(Post post);
 }

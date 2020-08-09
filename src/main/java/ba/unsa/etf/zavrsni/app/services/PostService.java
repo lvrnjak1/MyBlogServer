@@ -70,4 +70,11 @@ public class PostService {
         postRepository.delete(post);
         return new StatusPayload("Successfully deleted the post", "DELETE_POST", true);
     }
+
+    public Post findById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Post with this id doesn't exist")
+                );
+    }
 }
