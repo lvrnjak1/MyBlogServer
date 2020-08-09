@@ -12,6 +12,8 @@ import ba.unsa.etf.zavrsni.app.utils.NewPostPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,8 +45,8 @@ public class PostService {
         return postRepository.findAllByAuthor(account);
     }
 
-    public List<Post> getAllPostsByFollowing(Account currentUser) {
-        return followService.getAllAccountFollowedBy(currentUser)
+    private List<Post> getAllPostsByFollowedAccounts(Account currentUser) {
+        return followService.getAllAccountsFollowedBy(currentUser)
                 .stream()
                 .map(this::getAllPostsByAccount)
                 .flatMap(List::stream)
@@ -76,5 +78,27 @@ public class PostService {
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Post with this id doesn't exist")
                 );
+    }
+
+    public List<Post> getFollowedPostsByOffsetAndNumberOfDays(int offsetDays, int numberOfDays, Account account) {
+        //gets all posts that are not older than numberOfDays from
+        //offsetDays ago
+        return getAllPostsByFollowedAccounts(account)
+                .stream()
+                .filter(post -> postDateInRange(post, offsetDays, numberOfDays))
+                .sorted(Comparator.comparing(post -> post.getDateTimePosted().toLocalDateTime()))
+                .collect(Collectors.toList());
+    }
+
+    private boolean postDateInRange(Post post, int offsetDays, int numberOfDays) {
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime to = today.minusDays(offsetDays);
+        LocalDateTime from = to.minusDays(numberOfDays);
+        return isBetween(from, to, post.getDateTimePosted().toLocalDateTime());
+    }
+
+    private static boolean isBetween(LocalDateTime dateFrom, LocalDateTime dateTo, LocalDateTime date) {
+        return (date.toLocalDate().isAfter(dateFrom.toLocalDate()) || date.toLocalDate().equals(dateFrom.toLocalDate()))
+                && (date.toLocalDate().isBefore(dateTo.toLocalDate()) || date.toLocalDate().equals(dateTo.toLocalDate()));
     }
 }

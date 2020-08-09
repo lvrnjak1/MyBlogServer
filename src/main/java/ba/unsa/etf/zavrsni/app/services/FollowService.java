@@ -27,7 +27,7 @@ public class FollowService {
                 .collect(Collectors.toList());
     }
 
-    public List<Account> getAllAccountFollowedBy(Account account) {
+    public List<Account> getAllAccountsFollowedBy(Account account) {
         return followRepository.findAllByFollower(account)
                 .stream()
                 .map(Follow::getFollowee)

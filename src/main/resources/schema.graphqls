@@ -9,6 +9,7 @@ type Query{
     #getPostsByFollowing: [Post]
     getAccountById(accountId: ID!): Account
     getPostById(postId: ID!): Post
+    populateFeed(offsetDays: Int, numberOfDays: Int): [Post]
 }
 
 type Mutation{

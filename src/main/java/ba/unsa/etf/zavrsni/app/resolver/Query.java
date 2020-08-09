@@ -25,17 +25,16 @@ public class Query implements GraphQLQueryResolver {
         return authContext.getSignedInAccount(environment);
     }
 
-    public List<Post> getPostsByFollowing(DataFetchingEnvironment environment){
-        return postService.getAllPostsByFollowing(
-                authContext.getSignedInAccount(environment)
-        );
-    }
-
     public Account getAccountById(Long accountId){
         return accountService.getAccountById(accountId);
     }
 
     public Post getPostById(Long postId){
         return postService.findById(postId);
+    }
+
+    public List<Post> populateFeed(int offsetDays, int numberOfDays, DataFetchingEnvironment environment){
+        return postService.getFollowedPostsByOffsetAndNumberOfDays(offsetDays, numberOfDays,
+                authContext.getSignedInAccount(environment));
     }
 }
