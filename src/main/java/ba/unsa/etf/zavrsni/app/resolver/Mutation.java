@@ -4,7 +4,6 @@ import ba.unsa.etf.zavrsni.app.input.AccountInput;
 import ba.unsa.etf.zavrsni.app.input.AuthData;
 import ba.unsa.etf.zavrsni.app.input.PostInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
-import ba.unsa.etf.zavrsni.app.model.Follow;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.output.SignInPayload;
 import ba.unsa.etf.zavrsni.app.output.StatusPayload;
@@ -47,7 +46,7 @@ public class Mutation implements GraphQLMutationResolver {
         return likeService.toggleLikeByAccount(postId, authContext.getSignedInAccount(environment));
     }
 
-    public Follow toggleFollow(Long followeeId, DataFetchingEnvironment environment){
+    public Object toggleFollow(Long followeeId, DataFetchingEnvironment environment){
         return followService.toggleFollow(followeeId, authContext.getSignedInAccount(environment));
     }
 
