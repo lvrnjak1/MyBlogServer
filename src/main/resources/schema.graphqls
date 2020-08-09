@@ -6,8 +6,7 @@ schema {
 
 type Query{
     getAccount: Account
-    #posts of all the people you follow
-    getPostsByFollowing: [Post]
+    #getPostsByFollowing: [Post]
     getAccountById(accountId: ID!): Account
     getPostById(postId: ID!): Post
 }
@@ -91,11 +90,6 @@ input PostInput{
     dateTimePosted: String!
     #authorId: ID!
 }
-
-#input LikeInput{
-#    accountId: ID!
-#    postId: ID!
-#}
 
 input AuthData{
     username: String!

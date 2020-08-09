@@ -1,7 +1,6 @@
 package ba.unsa.etf.zavrsni.app.services;
 
 import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
-import ba.unsa.etf.zavrsni.app.input.LikeInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
@@ -24,18 +23,6 @@ public class LikeService {
 
     public Like addLike(Post post, Account account) {
         return likeRepository.save(new Like(null, account, post));
-    }
-
-    private Like fromLikeInputToLike(LikeInput likeInput) {
-        Account account = accountRepository.findById(likeInput.getAccountId())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("Nonexistent account")
-                );
-        Post post = postRepository.findById(likeInput.getPostId())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("Nonexistent post")
-                );
-        return new Like(null, account, post);
     }
 
     public List<Like> getAllLikesForPost(Post post) {
