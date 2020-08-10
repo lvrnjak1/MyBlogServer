@@ -4,7 +4,6 @@ import ba.unsa.etf.zavrsni.app.exceptions.RedundantOperationException;
 import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Follow;
-import ba.unsa.etf.zavrsni.app.output.StatusPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.FollowRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,14 +49,15 @@ public class FollowService {
         return new Follow(null, follower, followee);
     }
 
-    public Object toggleFollow(Long followeeId, Account follower) {
+    public Follow toggleFollow(Long followeeId, Account follower) {
         Optional<Follow> follow = followRepository.findByFollower_IdAndFollowee_Id(follower.getId(), followeeId);
         if(follow.isEmpty()){
             return addFollowRelation(followeeId, follower);
         }
 
         removeFollow(follow.get());
-        return new StatusPayload("Successfully unfollowed this account", "UNFOLLOW", true);
+        return null;
+        //return new StatusPayload("Successfully unfollowed this account", "UNFOLLOW", true);
     }
 
     private void removeFollow(Follow follow) {

@@ -8,6 +8,7 @@ import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.User;
 import ba.unsa.etf.zavrsni.app.output.SignInPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
+import ba.unsa.etf.zavrsni.app.specification.AccountSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -67,5 +68,9 @@ public class AccountService {
         return accountRepository.findById(accountId).orElseThrow(
                 () -> new ResourceNotFoundException("Account doesn't exist")
         );
+    }
+
+    public List<Account> searchForAccounts(String toSearch) {
+        return accountRepository.findAll(new AccountSpecification(toSearch));
     }
 }

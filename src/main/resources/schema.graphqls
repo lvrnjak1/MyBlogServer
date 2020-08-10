@@ -10,6 +10,7 @@ type Query{
     getAccountById(accountId: ID!): Account
     getPostById(postId: ID!): Post
     populateFeed(offsetDays: Int, numberOfDays: Int): [Post]
+    searchAccounts(toSearch: String): [Account]
 }
 
 type Mutation{
@@ -19,7 +20,7 @@ type Mutation{
     editPost(postId: ID, newTitle: String, newBody: String): Post
     deletePost(postId: ID): StatusPayload
     toggleLike(postId: ID): LikeResponse
-    toggleFollow(followeeId: ID!): FollowResponse
+    toggleFollow(followeeId: ID!): Follow
 }
 
 type Subscription{

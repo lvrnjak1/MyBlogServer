@@ -37,4 +37,8 @@ public class Query implements GraphQLQueryResolver {
         return postService.getFollowedPostsByOffsetAndNumberOfDays(offsetDays, numberOfDays,
                 authContext.getSignedInAccount(environment));
     }
+
+    public List<Account> searchAccounts(String toSearch){
+        return accountService.searchForAccounts(toSearch);
+    }
 }
