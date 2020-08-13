@@ -63,4 +63,8 @@ public class FollowService {
     private void removeFollow(Follow follow) {
         followRepository.delete(follow);
     }
+
+    public Optional<Follow> findByFollowerAndFollowee(Account follower, Account followee) {
+        return followRepository.findByFollowerAndFollowee(follower, followee);
+    }
 }

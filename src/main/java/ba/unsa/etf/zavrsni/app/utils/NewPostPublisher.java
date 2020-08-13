@@ -2,6 +2,7 @@ package ba.unsa.etf.zavrsni.app.utils;
 
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
+import ba.unsa.etf.zavrsni.app.services.FollowService;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Component;
 public class NewPostPublisher {
     private final Flowable<Post> publisher;
     private ObservableEmitter<Post> emitter;
+    private final FollowService followService;
 
-    public NewPostPublisher() {
+    public NewPostPublisher(FollowService followService) {
+        this.followService = followService;
         Observable<Post> newPostObservable = Observable.create(emitter -> {
             this.emitter = emitter;
         });
@@ -29,6 +32,10 @@ public class NewPostPublisher {
     }
 
     public Flowable<Post> getPublisher(Account account) {
-        return publisher;
+        return publisher.filter(post -> {
+            return followService
+                    .findByFollowerAndFollowee(account, post.getAuthor())
+                    .isPresent();
+        });
     }
 }
