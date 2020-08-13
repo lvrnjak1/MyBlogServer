@@ -43,7 +43,7 @@ public class Mutation implements GraphQLMutationResolver {
         return postService.deletePostByAuthor(postId, authContext.getSignedInAccount(environment));
     }
 
-    public Object toggleLike(Long postId, DataFetchingEnvironment environment){
+    public Post toggleLike(Long postId, DataFetchingEnvironment environment){
         return likeService.toggleLikeByAccount(postId, authContext.getSignedInAccount(environment));
     }
 

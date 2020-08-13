@@ -86,7 +86,8 @@ public class PostService {
         return getAllPostsByFollowedAccounts(account)
                 .stream()
                 .filter(post -> postDateInRange(post, offsetDays, numberOfDays))
-                .sorted(Comparator.comparing(post -> post.getDateTimePosted().toLocalDateTime()))
+                .sorted(Comparator.comparing(post -> post.getDateTimePosted().toLocalDateTime(),
+                        Comparator.reverseOrder()))
                 .collect(Collectors.toList());
     }
 

@@ -4,7 +4,6 @@ import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
-import ba.unsa.etf.zavrsni.app.output.StatusPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.LikeRepository;
 import ba.unsa.etf.zavrsni.app.repositories.PostRepository;
@@ -29,7 +28,7 @@ public class LikeService {
         return likeRepository.findAllByLikedPost(post);
     }
 
-    public Object toggleLikeByAccount(Long postId, Account signedInAccount) {
+    public Post toggleLikeByAccount(Long postId, Account signedInAccount) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Post doesn't exist")
@@ -38,10 +37,11 @@ public class LikeService {
         Optional<Like> like = likeRepository.findByAccount_IdAndLikedPost_Id(signedInAccount.getId(), postId);
         if(like.isPresent()){
             likeRepository.delete(like.get());
-            return new StatusPayload("Post disliked", "DISLIKE", true);
+            return post;
         }
 
-        return addLike(post, signedInAccount);
+       addLike(post, signedInAccount);
+        return post;
     }
 
     public int getNumberOfLikes(Post post) {

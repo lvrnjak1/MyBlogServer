@@ -18,7 +18,7 @@ type Mutation{
     addPost(post: PostInput): Post
     editPost(postId: ID, newTitle: String, newBody: String): Post
     deletePost(postId: ID): StatusPayload
-    toggleLike(postId: ID): LikeResponse
+    toggleLike(postId: ID): Post
     toggleFollow(followeeId: ID!): Follow
 }
 
