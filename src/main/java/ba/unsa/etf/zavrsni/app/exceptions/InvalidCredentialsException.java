@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class InvalidCredentialsException extends RuntimeException implements GraphQLError {
     public InvalidCredentialsException(String message) {
+        super(message);
     }
 
     @Override

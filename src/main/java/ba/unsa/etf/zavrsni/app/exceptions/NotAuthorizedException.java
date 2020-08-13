@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class NotAuthorizedException extends RuntimeException implements GraphQLError {
     public NotAuthorizedException(String message) {
+        super(message);
     }
 
     @Override

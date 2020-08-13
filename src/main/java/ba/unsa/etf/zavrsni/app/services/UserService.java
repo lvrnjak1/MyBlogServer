@@ -1,5 +1,6 @@
 package ba.unsa.etf.zavrsni.app.services;
 
+import ba.unsa.etf.zavrsni.app.exceptions.InvalidCredentialsException;
 import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.input.AuthData;
 import ba.unsa.etf.zavrsni.app.model.Account;
@@ -41,7 +42,9 @@ public class UserService {
                         () -> new ResourceNotFoundException("Account with this username doesn't exist")
                 );
 
-
+        if(!account.getUser().getPassword().equals(authData.getPassword())){
+            throw new InvalidCredentialsException("Invalid password");
+        }
         return new SignInPayload(String.valueOf(account.getUser().getId()), account);
     }
 
