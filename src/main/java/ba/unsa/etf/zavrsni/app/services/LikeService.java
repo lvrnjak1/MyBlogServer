@@ -47,4 +47,8 @@ public class LikeService {
     public int getNumberOfLikes(Post post) {
         return likeRepository.countByLikedPost(post);
     }
+
+    public boolean checkIfPostLikedBy(Post post, Account currentUser) {
+        return likeRepository.findByAccount_IdAndLikedPost_Id(currentUser.getId(), post.getId()).isPresent();
+    }
 }

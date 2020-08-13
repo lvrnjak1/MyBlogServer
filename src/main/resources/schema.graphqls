@@ -57,6 +57,7 @@ type Post{
     author: Account!
     numberOfLikes: Int
     likes: [Like]
+    likedByTheCurrentUser: Boolean
 }
 
 type Like{
