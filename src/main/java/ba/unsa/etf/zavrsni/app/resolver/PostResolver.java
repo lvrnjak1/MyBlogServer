@@ -28,6 +28,6 @@ public class PostResolver implements GraphQLResolver<Post> {
     }
 
     public int numberOfLikes(Post post){
-        return likes(post).size();
+        return likeService.getNumberOfLikes(post);
     }
 }

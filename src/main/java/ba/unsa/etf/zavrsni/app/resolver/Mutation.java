@@ -27,8 +27,8 @@ public class Mutation implements GraphQLMutationResolver {
     private final FollowService followService;
     private final AuthContext authContext;
 
-    public Account createAccount(AccountInput accountInput){
-        return accountService.createNewAccount(accountInput);
+    public Account createAccount(AccountInput account){
+        return accountService.createNewAccount(account);
     }
 
     public Post addPost(PostInput postInput, DataFetchingEnvironment environment){

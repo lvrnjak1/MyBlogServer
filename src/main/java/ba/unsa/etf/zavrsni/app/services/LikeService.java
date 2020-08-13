@@ -43,4 +43,8 @@ public class LikeService {
 
         return addLike(post, signedInAccount);
     }
+
+    public int getNumberOfLikes(Post post) {
+        return likeRepository.countByLikedPost(post);
+    }
 }

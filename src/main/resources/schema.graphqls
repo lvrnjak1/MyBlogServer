@@ -6,7 +6,6 @@ schema {
 
 type Query{
     getAccount: Account
-    #getPostsByFollowing: [Post]
     getAccountById(accountId: ID!): Account
     getPostById(postId: ID!): Post
     populateFeed(offsetDays: Int, numberOfDays: Int): [Post]
@@ -44,7 +43,9 @@ type Account{
     #dateOfBirth: Date
     user: User!
     posts: [Post!]
+    numberOfFollowers: Int
     followers: [Account!]
+    numberOfFollowing: Int
     following: [Account!]
 }
 

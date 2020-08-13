@@ -8,6 +8,7 @@ import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.User;
 import ba.unsa.etf.zavrsni.app.output.SignInPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
+import ba.unsa.etf.zavrsni.app.repositories.FollowRepository;
 import ba.unsa.etf.zavrsni.app.specification.AccountSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.List;
 public class AccountService {
     private final AccountRepository accountRepository;
     private final UserService userService;
+    private final FollowRepository followRepository;
 
     public Account createNewAccount(AccountInput accountInput) {
         checkUsernameAvailability(accountInput.getUser().getUsername());
@@ -72,5 +74,13 @@ public class AccountService {
 
     public List<Account> searchForAccounts(String toSearch) {
         return accountRepository.findAll(new AccountSpecification(toSearch));
+    }
+
+    public int getNumberOfFollowers(Account account) {
+        return followRepository.countByFollowee(account);
+    }
+
+    public int getNumberOfAccountsFollowedBy(Account account){
+        return followRepository.countByFollower(account);
     }
 }
