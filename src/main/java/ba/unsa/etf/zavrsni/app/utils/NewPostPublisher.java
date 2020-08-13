@@ -1,5 +1,6 @@
 package ba.unsa.etf.zavrsni.app.utils;
 
+import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -27,7 +28,7 @@ public class NewPostPublisher {
         emitter.onNext(post);
     }
 
-    public Flowable<Post> getPublisher() {
+    public Flowable<Post> getPublisher(Account account) {
         return publisher;
     }
 }
