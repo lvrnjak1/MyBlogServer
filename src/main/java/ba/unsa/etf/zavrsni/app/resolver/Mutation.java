@@ -27,8 +27,9 @@ public class Mutation implements GraphQLMutationResolver {
     private final FollowService followService;
     private final AuthContext authContext;
 
-    public Account createAccount(AccountInput account){
-        return accountService.createNewAccount(account);
+    public SignInPayload createAccount(AccountInput account){
+        Account savedAccount = accountService.createNewAccount(account);
+        return new SignInPayload(String.valueOf(savedAccount.getId()), savedAccount);
     }
 
     public Post addPost(PostInput postInput, DataFetchingEnvironment environment){
@@ -40,7 +41,7 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     public StatusPayload deletePost(Long postId, DataFetchingEnvironment environment){
-        return postService.deletePostByAuthor(postId, authContext.getSignedInAccount(environment));
+       return postService.deletePostByAuthor(postId, authContext.getSignedInAccount(environment));
     }
 
     public Post toggleLike(Long postId, DataFetchingEnvironment environment){

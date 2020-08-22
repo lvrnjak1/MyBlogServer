@@ -13,7 +13,7 @@ type Query{
 }
 
 type Mutation{
-    createAccount(account: AccountInput): Account
+    createAccount(account: AccountInput): SignInPayload
     signIn(authData: AuthData): SignInPayload
     addPost(post: PostInput): Post
     editPost(postId: ID, newTitle: String, newBody: String): Post
