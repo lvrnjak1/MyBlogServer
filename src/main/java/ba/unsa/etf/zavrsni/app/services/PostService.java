@@ -42,7 +42,11 @@ public class PostService {
     }
 
     public List<Post> getAllPostsByAccount(Account account) {
-        return postRepository.findAllByAuthor(account);
+        return postRepository.findAllByAuthor(account)
+                .stream()
+                .sorted(Comparator.comparing(post -> post.getDateTimePosted().toLocalDateTime(),
+                        Comparator.reverseOrder()))
+                .collect(Collectors.toList());
     }
 
     private List<Post> getAllPostsByFollowedAccounts(Account currentUser) {

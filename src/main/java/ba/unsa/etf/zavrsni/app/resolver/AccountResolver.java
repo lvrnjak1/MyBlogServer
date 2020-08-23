@@ -6,7 +6,9 @@ import ba.unsa.etf.zavrsni.app.model.User;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.FollowService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
+import ba.unsa.etf.zavrsni.app.utils.AuthContext;
 import com.coxautodev.graphql.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ public class AccountResolver implements GraphQLResolver<Account> {
     private final AccountService accountService;
     private final PostService postService;
     private final FollowService followService;
+    private final AuthContext authContext;
 
     public User user(Account account){
         return  account.getUser();
@@ -43,5 +46,9 @@ public class AccountResolver implements GraphQLResolver<Account> {
 
     public int numberOfFollowing(Account account){
         return accountService.getNumberOfAccountsFollowedBy(account);
+    }
+
+    public boolean isFollowedByLoggedInAccount(Account account, DataFetchingEnvironment environment){
+        return accountService.isFollowedByLoggedInAccount(account, authContext.getSignedInAccount(environment));
     }
 }

@@ -83,4 +83,8 @@ public class AccountService {
     public int getNumberOfAccountsFollowedBy(Account account){
         return followRepository.countByFollower(account);
     }
+
+    public boolean isFollowedByLoggedInAccount(Account followee, Account follower) {
+        return followRepository.findByFollowerAndFollowee(follower, followee).isPresent();
+    }
 }

@@ -48,7 +48,7 @@ public class Mutation implements GraphQLMutationResolver {
         return likeService.toggleLikeByAccount(postId, authContext.getSignedInAccount(environment));
     }
 
-    public Follow toggleFollow(Long followeeId, DataFetchingEnvironment environment){
+    public Account toggleFollow(Long followeeId, DataFetchingEnvironment environment){
         return followService.toggleFollow(followeeId, authContext.getSignedInAccount(environment));
     }
 

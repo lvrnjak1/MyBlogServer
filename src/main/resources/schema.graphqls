@@ -19,7 +19,7 @@ type Mutation{
     editPost(postId: ID, newTitle: String, newBody: String): Post
     deletePost(postId: ID): StatusPayload
     toggleLike(postId: ID): Post
-    toggleFollow(followeeId: ID!): Follow
+    toggleFollow(followeeId: ID!): Account
 }
 
 type Subscription{
@@ -47,6 +47,7 @@ type Account{
     followers: [Account!]
     numberOfFollowing: Int
     following: [Account!]
+    isFollowedByLoggedInAccount: Boolean
 }
 
 type Post{

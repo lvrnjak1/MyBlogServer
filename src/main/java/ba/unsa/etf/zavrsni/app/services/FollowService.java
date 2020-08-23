@@ -49,14 +49,14 @@ public class FollowService {
         return new Follow(null, follower, followee);
     }
 
-    public Follow toggleFollow(Long followeeId, Account follower) {
+    public Account toggleFollow(Long followeeId, Account follower) {
         Optional<Follow> follow = followRepository.findByFollower_IdAndFollowee_Id(follower.getId(), followeeId);
         if(follow.isEmpty()){
-            return addFollowRelation(followeeId, follower);
+            return addFollowRelation(followeeId, follower).getFollowee();
         }
-
+        Account followee = follow.get().getFollowee();
         removeFollow(follow.get());
-        return null;
+        return followee;
         //return new StatusPayload("Successfully unfollowed this account", "UNFOLLOW", true);
     }
 
