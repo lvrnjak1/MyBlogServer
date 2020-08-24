@@ -32,5 +32,6 @@ public class Post {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Account author;
+    private boolean edited = false;
 
 }

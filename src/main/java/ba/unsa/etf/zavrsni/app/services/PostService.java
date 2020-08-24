@@ -37,7 +37,7 @@ public class PostService {
 
     private Post postInputToPost(PostInput postInput, Account author) {
         return new Post(null, postInput.getTitle(), postInput.getBody(),
-                DateUtil.parseTimestamp(postInput.getDateTimePosted()), author);
+                DateUtil.parseTimestamp(postInput.getDateTimePosted()), author, false);
 
     }
 
@@ -64,6 +64,7 @@ public class PostService {
         );
         post.setTitle(newTitle);
         post.setBody(newBody);
+        post.setEdited(true);
         return postRepository.save(post);
     }
 

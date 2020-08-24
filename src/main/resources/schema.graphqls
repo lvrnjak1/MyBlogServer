@@ -59,6 +59,7 @@ type Post{
     numberOfLikes: Int
     likes: [Like]
     likedByTheCurrentUser: Boolean
+    edited: Boolean
 }
 
 type Like{
