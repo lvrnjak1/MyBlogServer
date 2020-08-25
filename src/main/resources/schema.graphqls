@@ -40,7 +40,6 @@ type Account{
     name: String!
     surname: String!
     bio: String
-    #dateOfBirth: Date
     user: User!
     posts: [Post!]
     numberOfFollowers: Int
@@ -85,16 +84,13 @@ input AccountInput{
     name: String!
     surname: String!
     bio: String
-    #dateOfBirth: Date
     user: UserInput
 }
 
 input PostInput{
     title: String
     body: String!
-    #Long timestamp sent as a string
     dateTimePosted: String!
-    #authorId: ID!
 }
 
 input AuthData{
@@ -112,10 +108,3 @@ type StatusPayload{
     action: String!
     success: Boolean!
 }
-
-union LikeResponse = Like | StatusPayload
-union FollowResponse = Follow | StatusPayload
-
-#ideas
-#stream of all of your followers' posts
-#stream of all of your followers' followings
