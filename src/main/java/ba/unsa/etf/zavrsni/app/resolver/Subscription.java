@@ -18,6 +18,7 @@ public class Subscription implements GraphQLSubscriptionResolver {
     private final AccountService accountService;
 
     public Publisher<Post> newPost(DataFetchingEnvironment environment){
+        //authContext.getSignedInAccount(environment);
         return newPostPublisher
                 .getPublisher(accountService.getAccountById(10001L));
         //authContext.getSignedInAccount(environment)
