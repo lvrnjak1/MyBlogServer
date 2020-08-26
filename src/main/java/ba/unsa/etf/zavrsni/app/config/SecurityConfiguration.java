@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-    private final String[] unsecuredEndpoints = new String[] {"/graphql"};
+    private final String[] unsecuredEndpoints = new String[] {"/graphql", "/subscriptions"};
 
     private final AuthService authService;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;

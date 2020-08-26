@@ -18,9 +18,11 @@ public class Subscription implements GraphQLSubscriptionResolver {
     private final AccountService accountService;
 
     public Publisher<Post> newPost(DataFetchingEnvironment environment){
+        //signed in user iz tokena
         //authContext.getSignedInAccount(environment);
+
+        //hardcoded radi testiranja uvijek isti user
         return newPostPublisher
                 .getPublisher(accountService.getAccountById(10001L));
-        //authContext.getSignedInAccount(environment)
     }
 }
