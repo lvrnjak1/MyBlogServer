@@ -1,5 +1,6 @@
 package ba.unsa.etf.zavrsni.app.utils;
 
+import ba.unsa.etf.zavrsni.app.exceptions.NotAuthorizedException;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import graphql.schema.DataFetchingEnvironment;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Component
@@ -17,7 +19,10 @@ public class AuthContext{
     public Account getSignedInAccount(DataFetchingEnvironment environment){
         GraphQLContext graphQLContext = environment.getContext();
         HttpServletRequest request = graphQLContext.getHttpServletRequest().get();
-        String token = request.getHeader("Authorization").replace("Bearer ", "");
-        return accountService.getAccountByUserId(Long.valueOf(token));
+        Principal principal = request.getUserPrincipal();
+        if(principal == null){
+            throw new NotAuthorizedException("You are not logged in");
+        }
+        return accountService.getAccountByUsername(principal.getName());
     }
 }
