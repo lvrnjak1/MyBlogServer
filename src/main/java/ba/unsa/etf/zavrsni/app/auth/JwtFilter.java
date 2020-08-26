@@ -1,8 +1,5 @@
 package ba.unsa.etf.zavrsni.app.auth;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -19,10 +16,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
     private final AuthService authService;
+    private final JwtProcessor jwtProcessor;
 
-    public JwtFilter(JwtProvider jwtProvider, AuthService authService) {
+
+    public JwtFilter(JwtProvider jwtProvider, AuthService authService, JwtProcessor jwtProcessor) {
         this.jwtProvider = jwtProvider;
         this.authService = authService;
+        this.jwtProcessor = jwtProcessor;
     }
 
     @Override
@@ -30,17 +30,11 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
         String token = extractToken(httpServletRequest.getHeader("Authorization"));
-        try {
-            if (token != null && SecurityContextHolder.getContext().getAuthentication() == null && jwtProvider.isValid(token)) {
-                String username = jwtProvider.extractUsername(token);
-                UserDetails user = authService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            }
-        } catch (Exception ignored) {
-            System.out.println("Invalid token!");
+        var auth = jwtProcessor.process(token);
+        if (auth != null) {
+            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
         }
+
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 

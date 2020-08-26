@@ -32,10 +32,8 @@ public class NewPostPublisher {
     }
 
     public Flowable<Post> getPublisher(Account account) {
-        return publisher.filter(post -> {
-            return followService
-                    .findByFollowerAndFollowee(account, post.getAuthor())
-                    .isPresent();
-        });
+        return publisher.filter(post -> followService
+                .findByFollowerAndFollowee(account, post.getAuthor())
+                .isPresent());
     }
 }

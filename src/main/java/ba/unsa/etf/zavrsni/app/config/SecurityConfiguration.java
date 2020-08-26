@@ -1,8 +1,6 @@
 package ba.unsa.etf.zavrsni.app.config;
 
-import ba.unsa.etf.zavrsni.app.auth.AuthService;
-import ba.unsa.etf.zavrsni.app.auth.JwtAuthEntryPoint;
-import ba.unsa.etf.zavrsni.app.auth.JwtFilter;
+import ba.unsa.etf.zavrsni.app.auth.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

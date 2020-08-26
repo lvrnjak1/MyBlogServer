@@ -8,6 +8,7 @@ import com.coxautodev.graphql.tools.GraphQLSubscriptionResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,10 +18,11 @@ public class Subscription implements GraphQLSubscriptionResolver {
     private final AuthContext authContext;
     private final AccountService accountService;
 
+
     public Publisher<Post> newPost(DataFetchingEnvironment environment){
         //signed in user iz tokena
         //authContext.getSignedInAccount(environment);
-
+        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //hardcoded radi testiranja uvijek isti user
         return newPostPublisher
                 .getPublisher(accountService.getAccountById(10001L));
