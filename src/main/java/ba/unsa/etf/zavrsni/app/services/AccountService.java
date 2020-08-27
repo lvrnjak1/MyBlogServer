@@ -28,7 +28,6 @@ public class AccountService {
         checkEmailUsage(accountInput.getUser().getEmail());
         Account account = accountInput.castToAccount();
         User user = account.getUser();
-        //userService.encodePWAndSave(user);
         userService.save(user);
         return accountRepository.save(account);
     }

@@ -41,7 +41,11 @@ public class PostResolver implements GraphQLResolver<Post> {
     public boolean likedByTheCurrentUser(Post post, DataFetchingEnvironment environment){
         Account currentUser;
         try {
-            currentUser = accountService.getAccountById(10001L);//authContext.getSignedInAccount(environment);
+            //currentUser = accountService.getAccountById(10001L);
+            currentUser = authContext.getSignedInAccount(environment);
+            if(currentUser == null){
+                currentUser = accountService.getAccountById(10001L);
+            }
         }catch (ResourceNotFoundException exception){
             throw new NotAuthorizedException("You are not authorized");
         }
