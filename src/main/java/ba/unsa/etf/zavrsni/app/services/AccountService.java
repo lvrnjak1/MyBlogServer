@@ -1,5 +1,6 @@
 package ba.unsa.etf.zavrsni.app.services;
 
+import ba.unsa.etf.zavrsni.app.exceptions.InvalidCredentialsException;
 import ba.unsa.etf.zavrsni.app.exceptions.ResourceAlreadyInUse;
 import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.input.AccountInput;
@@ -27,7 +28,6 @@ public class AccountService {
         checkEmailUsage(accountInput.getUser().getEmail());
         Account account = accountInput.castToAccount();
         User user = account.getUser();
-        //userService.encodePWAndSave(user);
         userService.save(user);
         return accountRepository.save(account);
     }
@@ -86,5 +86,10 @@ public class AccountService {
 
     public boolean isFollowedByLoggedInAccount(Account followee, Account follower) {
         return followRepository.findByFollowerAndFollowee(follower, followee).isPresent();
+    }
+
+    public Account getAccountByUsername(String username) {
+        return accountRepository.findByUser_Username(username)
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid username"));
     }
 }

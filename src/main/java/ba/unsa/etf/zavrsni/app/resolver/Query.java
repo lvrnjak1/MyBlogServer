@@ -29,6 +29,10 @@ public class Query implements GraphQLQueryResolver {
         return accountService.getAccountById(accountId);
     }
 
+    public Account getAccountByUsername(String username){
+        return accountService.getAccountByUsername(username);
+    }
+
     public Post getPostById(Long postId){
         return postService.findById(postId);
     }
