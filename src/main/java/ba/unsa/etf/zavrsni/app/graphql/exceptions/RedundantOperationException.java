@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.exceptions;
+package ba.unsa.etf.zavrsni.app.graphql.exceptions;
 
 import graphql.ErrorType;
 import graphql.GraphQLError;
@@ -7,8 +7,8 @@ import graphql.language.SourceLocation;
 import java.util.List;
 import java.util.Map;
 
-public class NotAuthorizedException extends RuntimeException implements GraphQLError {
-    public NotAuthorizedException(String message) {
+public class RedundantOperationException extends RuntimeException implements GraphQLError {
+    public RedundantOperationException(String message) {
         super(message);
     }
 

@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.config;
+package ba.unsa.etf.zavrsni.app.graphql.config;
 
 import ba.unsa.etf.zavrsni.app.auth.JwtProcessor;
 import graphql.servlet.GraphQLInvocationInputFactory;
@@ -25,8 +25,6 @@ import java.util.stream.Stream;
 public class GraphQLWebSocketConfig {
     private static final String HANDSHAKE_REQUEST_KEY = HandshakeRequest.class.getName();
     private static final String PROTOCOL_HANDLER_REQUEST_KEY = SubscriptionProtocolHandler.class.getName();
-
-
 
     private static SubscriptionProtocolFactory getSubscriptionProtocolFactory(
             List<SubscriptionProtocolFactory> subscriptionProtocolFactories,

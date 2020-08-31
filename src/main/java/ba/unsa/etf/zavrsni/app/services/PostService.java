@@ -1,14 +1,14 @@
 package ba.unsa.etf.zavrsni.app.services;
 
-import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
-import ba.unsa.etf.zavrsni.app.input.PostInput;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.ResourceNotFoundException;
+import ba.unsa.etf.zavrsni.app.graphql.input.PostInput;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
-import ba.unsa.etf.zavrsni.app.output.StatusPayload;
+import ba.unsa.etf.zavrsni.app.graphql.output.StatusPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.PostRepository;
-import ba.unsa.etf.zavrsni.app.utils.DateUtil;
-import ba.unsa.etf.zavrsni.app.utils.NewPostPublisher;
+import ba.unsa.etf.zavrsni.app.graphql.utils.DateUtil;
+import ba.unsa.etf.zavrsni.app.graphql.utils.NewPostPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

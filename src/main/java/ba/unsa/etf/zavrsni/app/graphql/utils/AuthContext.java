@@ -1,6 +1,6 @@
-package ba.unsa.etf.zavrsni.app.utils;
+package ba.unsa.etf.zavrsni.app.graphql.utils;
 
-import ba.unsa.etf.zavrsni.app.exceptions.NotAuthorizedException;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.NotAuthorizedException;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import graphql.schema.DataFetchingEnvironment;

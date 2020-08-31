@@ -1,9 +1,9 @@
-package ba.unsa.etf.zavrsni.app.resolver;
+package ba.unsa.etf.zavrsni.app.graphql.resolver;
 
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
-import ba.unsa.etf.zavrsni.app.utils.AuthContext;
-import ba.unsa.etf.zavrsni.app.utils.NewPostPublisher;
+import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
+import ba.unsa.etf.zavrsni.app.graphql.utils.NewPostPublisher;
 import com.coxautodev.graphql.tools.GraphQLSubscriptionResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;

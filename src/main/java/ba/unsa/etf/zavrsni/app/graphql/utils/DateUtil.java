@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.utils;
+package ba.unsa.etf.zavrsni.app.graphql.utils;
 
 import java.sql.Timestamp;
 

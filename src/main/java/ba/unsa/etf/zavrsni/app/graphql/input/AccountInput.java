@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.input;
+package ba.unsa.etf.zavrsni.app.graphql.input;
 
 import ba.unsa.etf.zavrsni.app.model.Account;
 import lombok.AllArgsConstructor;

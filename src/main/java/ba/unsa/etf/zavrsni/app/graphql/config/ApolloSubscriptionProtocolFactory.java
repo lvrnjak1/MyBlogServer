@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.config;
+package ba.unsa.etf.zavrsni.app.graphql.config;
 
 import ba.unsa.etf.zavrsni.app.auth.JwtProcessor;
 import graphql.servlet.internal.*;

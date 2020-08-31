@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.resolver;
+package ba.unsa.etf.zavrsni.app.graphql.resolver;
 
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Like;

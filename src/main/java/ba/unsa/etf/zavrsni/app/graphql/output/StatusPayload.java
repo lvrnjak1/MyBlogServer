@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.output;
+package ba.unsa.etf.zavrsni.app.graphql.output;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

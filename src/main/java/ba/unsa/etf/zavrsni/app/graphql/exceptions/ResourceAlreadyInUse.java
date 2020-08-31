@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.exceptions;
+package ba.unsa.etf.zavrsni.app.graphql.exceptions;
 
 import graphql.ErrorType;
 import graphql.GraphQLError;

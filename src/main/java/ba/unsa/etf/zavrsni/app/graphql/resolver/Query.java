@@ -1,11 +1,11 @@
-package ba.unsa.etf.zavrsni.app.resolver;
+package ba.unsa.etf.zavrsni.app.graphql.resolver;
 
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import ba.unsa.etf.zavrsni.app.services.UserService;
-import ba.unsa.etf.zavrsni.app.utils.AuthContext;
+import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;

@@ -1,13 +1,13 @@
-package ba.unsa.etf.zavrsni.app.resolver;
+package ba.unsa.etf.zavrsni.app.graphql.resolver;
 
-import ba.unsa.etf.zavrsni.app.exceptions.NotAuthorizedException;
-import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.NotAuthorizedException;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.LikeService;
-import ba.unsa.etf.zavrsni.app.utils.AuthContext;
+import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;

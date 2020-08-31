@@ -1,6 +1,6 @@
 package ba.unsa.etf.zavrsni.app.services;
 
-import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Like;
 import ba.unsa.etf.zavrsni.app.model.Post;
