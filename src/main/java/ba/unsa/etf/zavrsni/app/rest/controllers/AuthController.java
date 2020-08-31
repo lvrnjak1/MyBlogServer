@@ -1,4 +1,4 @@
-package ba.unsa.etf.zavrsni.app.rest;
+package ba.unsa.etf.zavrsni.app.rest.controllers;
 
 import ba.unsa.etf.zavrsni.app.auth.AuthService;
 import ba.unsa.etf.zavrsni.app.model.Account;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/rest-api/auth")
 @RequiredArgsConstructor
@@ -20,14 +22,14 @@ public class AuthController {
     private final AccountService accountService;
 
     @PostMapping("/login")
-    public LoginPayload logIn(@RequestBody LoginInput loginInput){
+    public LoginPayload logIn(@Valid @RequestBody LoginInput loginInput){
         String token = authService.authenticate(loginInput.getUsername(), loginInput.getPassword());
         //return new SignInPayload(token, accountService.getAccountByUsername(authData.getUsername()));
         return new LoginPayload(token, accountService.getAccountByUsername(loginInput.getUsername()).getId());
     }
 
     @PostMapping("/register")
-    public LoginPayload signIn(@RequestBody SignInInput signInInput){
+    public LoginPayload signIn(@Valid @RequestBody SignInInput signInInput){
         Account savedAccount = accountService.createNewAccount(signInInput);
         String token = authService.authenticate(signInInput.getUsername(), signInInput.getPassword());
         //return new SignInPayload(token, accountService.getAccountByUsername(authData.getUsername()));
