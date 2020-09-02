@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -102,5 +103,9 @@ public class AccountService {
     public Account getAccountByUsername(String username) {
         return accountRepository.findByUser_Username(username)
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid username"));
+    }
+
+    public Optional<Account> getAccountByUser(User user) {
+        return accountRepository.findByUser(user);
     }
 }

@@ -107,4 +107,8 @@ public class PostService {
         return (date.toLocalDate().isAfter(dateFrom.toLocalDate()) || date.toLocalDate().equals(dateFrom.toLocalDate()))
                 && (date.toLocalDate().isBefore(dateTo.toLocalDate()) || date.toLocalDate().equals(dateTo.toLocalDate()));
     }
+
+    public Post save(Post post) {
+       return postRepository.save(post);
+    }
 }
