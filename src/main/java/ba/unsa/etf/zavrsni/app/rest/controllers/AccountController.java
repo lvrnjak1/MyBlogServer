@@ -7,6 +7,7 @@ import ba.unsa.etf.zavrsni.app.rest.responses.ApiResponse;
 import ba.unsa.etf.zavrsni.app.rest.responses.PostResponse;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.FollowService;
+import ba.unsa.etf.zavrsni.app.services.LikeService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/rest-api/accounts")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AccountController {
     private final AccountService accountService;
     private final FollowService followService;
     private final PostService postService;
     private final ControllerUtility controllerUtility;
+    private final LikeService likeService;
 
     //get account by id
     @GetMapping("/{id}")
@@ -140,7 +143,7 @@ public class AccountController {
                 postService.getAllPostsByAccount(account)
                         .stream()
                         .map(post -> new PostResponse(post, controllerUtility.isLikedByCurrentUser(post,
-                                principal)))
+                                principal), likeService.getNumberOfLikes(post)))
                         .collect(Collectors.toList())
         );
     }
@@ -151,7 +154,7 @@ public class AccountController {
                 .getAllPostsByAccount(controllerUtility.getLoggedInAccount(principal))
                 .stream()
                 .map(post -> new PostResponse(post, controllerUtility.isLikedByCurrentUser(post,
-                        principal)))
+                        principal), likeService.getNumberOfLikes(post)))
                 .collect(Collectors.toList())
         );
     }

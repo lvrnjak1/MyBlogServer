@@ -15,13 +15,15 @@ public class PostResponse {
     private String dateTimePosted;
     private  boolean edited;
     private boolean likedByTheCurrentUser;
+    private int numberOfLikes;
 
-    public PostResponse(Post post, boolean likedByCurrentUser) {
+    public PostResponse(Post post, boolean likedByCurrentUser, int numberOfLikes) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.body = post.getBody();
         this.dateTimePosted = String.valueOf(post.getDateTimePosted().getTime());
         this.edited = post.isEdited();
         this.likedByTheCurrentUser = likedByCurrentUser;
+        this.numberOfLikes = numberOfLikes;
     }
 }

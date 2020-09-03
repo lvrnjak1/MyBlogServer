@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/rest-api/posts")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class PostController {
 
     private final PostService postService;
@@ -40,7 +41,7 @@ public class PostController {
                     .body(new ApiResponse("Post doesn't exist"));
         }
         boolean likedByCurrentUser = controllerUtility.isLikedByCurrentUser(post, principal);
-        return controllerUtility.getResponseEntityFromPost(post, likedByCurrentUser);
+        return controllerUtility.getResponseEntityFromPost(post, likedByCurrentUser, likeService.getNumberOfLikes(post));
     }
 
     //get post author
@@ -84,7 +85,7 @@ public class PostController {
                         postRequest.getDateTimePosted()),
                 controllerUtility.getLoggedInAccount(principal)
         );
-        return controllerUtility.getResponseEntityFromPost(post, false);
+        return controllerUtility.getResponseEntityFromPost(post, false, likeService.getNumberOfLikes(post));
     }
 
     //edit post
@@ -103,7 +104,9 @@ public class PostController {
                     .body(new ApiResponse("Post doesn't exist"));
         }
 
-        return controllerUtility.getResponseEntityFromPost(post, controllerUtility.isLikedByCurrentUser(post, principal));
+        return controllerUtility.
+                getResponseEntityFromPost(post, controllerUtility.isLikedByCurrentUser(post, principal),
+                        likeService.getNumberOfLikes(post));
     }
 
     //delete post
@@ -140,7 +143,7 @@ public class PostController {
                 controllerUtility.getLoggedInAccount(principal))
                 .stream()
                 .map(post -> new PostResponse(post,
-                        controllerUtility.isLikedByCurrentUser(post, principal)))
+                        controllerUtility.isLikedByCurrentUser(post, principal), likeService.getNumberOfLikes(post)))
                 .collect(Collectors.toList()));
     }
 }

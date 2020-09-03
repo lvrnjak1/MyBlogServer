@@ -36,8 +36,8 @@ public class ControllerUtility {
     }
 
     public ResponseEntity<PostResponse> getResponseEntityFromPost(Post post,
-                                                                   boolean likedByCurrentUser){
-        return ResponseEntity.ok().body(new PostResponse(post, likedByCurrentUser));
+                                                                   boolean likedByCurrentUser, int numberOfLikes){
+        return ResponseEntity.ok().body(new PostResponse(post, likedByCurrentUser, numberOfLikes));
     }
 
     public boolean isLikedByCurrentUser(Post post, Principal principal) {
