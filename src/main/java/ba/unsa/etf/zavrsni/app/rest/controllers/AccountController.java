@@ -41,30 +41,35 @@ public class AccountController {
         }
 
         boolean isFollowedByCurrentUser = controllerUtility.isFollowedByCurrentUser(account, principal);
-        return ResponseEntity.ok().body(new AccountResponse(account, isFollowedByCurrentUser));
+        return controllerUtility.getResponseEntityFromAccount(account, isFollowedByCurrentUser,
+                accountService.getNumberOfFollowers(account), accountService.getNumberOfAccountsFollowedBy(account));
     }
 
-    @GetMapping
+    @GetMapping("/myAccount")
     public ResponseEntity<AccountResponse> getMyAccount(Principal principal){
+        Account account = controllerUtility.getLoggedInAccount(principal);
         return ResponseEntity.ok()
-                .body(new AccountResponse(controllerUtility.getLoggedInAccount(principal),
-                        false));
+                .body(new AccountResponse(account,
+                        false, accountService.getNumberOfFollowers(account),
+                        accountService.getNumberOfAccountsFollowedBy(account)));
     }
 
-//    //get account by username
-//    @GetMapping("/{username}")
-//    public ResponseEntity<?> getAccountByUsername(@PathVariable String username, Principal principal){
-//        Account account = null;
-//        try {
-//            account = accountService.getAccountByUsername(username);
-//        }catch (RuntimeException exception){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body(new ApiResponse("Account doesn't exist"));
-//        }
-//
-//        boolean isFollowedByCurrentUser = controllerUtility.isFollowedByCurrentUser(account, principal);
-//        return ResponseEntity.ok().body(new AccountResponse(account, isFollowedByCurrentUser));
-//    }
+    //get account by username
+    @GetMapping
+    public ResponseEntity<?> getAccountByUsername(@RequestParam String username, Principal principal){
+        Account account = null;
+        try {
+            account = accountService.getAccountByUsername(username);
+        }catch (RuntimeException exception){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse("Account doesn't exist"));
+        }
+
+        boolean isFollowedByCurrentUser = controllerUtility.isFollowedByCurrentUser(account, principal);
+        return ResponseEntity.ok().body(new AccountResponse(account, isFollowedByCurrentUser,
+                accountService.getNumberOfFollowers(account),
+                accountService.getNumberOfAccountsFollowedBy(account)));
+    }
 
     //get followers
     @GetMapping("/{id}/followers")
@@ -81,7 +86,9 @@ public class AccountController {
                 followService.getAllFollowersForAccount(account)
                 .stream()
                 .map(account1 -> new AccountResponse(account1,
-                        controllerUtility.isFollowedByCurrentUser(account1, principal)))
+                        controllerUtility.isFollowedByCurrentUser(account1, principal),
+                        accountService.getNumberOfFollowers(account1),
+                        accountService.getNumberOfAccountsFollowedBy(account1)))
                 .collect(Collectors.toList())
         );
     }
@@ -93,7 +100,9 @@ public class AccountController {
                         getAllFollowersForAccount(controllerUtility.getLoggedInAccount(principal))
                         .stream()
                         .map(account1 -> new AccountResponse(account1,
-                                controllerUtility.isFollowedByCurrentUser(account1, principal)))
+                                controllerUtility.isFollowedByCurrentUser(account1, principal),
+                                accountService.getNumberOfFollowers(account1),
+                                accountService.getNumberOfAccountsFollowedBy(account1)))
                         .collect(Collectors.toList())
                 );
     }
@@ -112,7 +121,9 @@ public class AccountController {
         return ResponseEntity.ok().body(followService.getAllAccountsFollowedBy(account)
                 .stream()
                 .map(account1 -> new AccountResponse(account1,
-                        controllerUtility.isFollowedByCurrentUser(account1, principal)))
+                        controllerUtility.isFollowedByCurrentUser(account1, principal),
+                        accountService.getNumberOfFollowers(account1),
+                        accountService.getNumberOfAccountsFollowedBy(account1)))
                 .collect(Collectors.toList())
         );
     }
@@ -123,7 +134,9 @@ public class AccountController {
                 .body(followService.getAllAccountsFollowedBy(
                         controllerUtility.getLoggedInAccount(principal))
                         .stream()
-                        .map(account1 -> new AccountResponse(account1, true))
+                        .map(account1 -> new AccountResponse(account1, true,
+                                accountService.getNumberOfFollowers(account1),
+                                accountService.getNumberOfAccountsFollowedBy(account1)))
                         .collect(Collectors.toList())
                 );
     }
@@ -184,7 +197,9 @@ public class AccountController {
                         .map(account ->
                                 new AccountResponse(account,
                                         controllerUtility
-                                                .isFollowedByCurrentUser(account, principal)))
+                                                .isFollowedByCurrentUser(account, principal),
+                                        accountService.getNumberOfFollowers(account),
+                                        accountService.getNumberOfAccountsFollowedBy(account)))
                         .collect(Collectors.toList())
         );
     }

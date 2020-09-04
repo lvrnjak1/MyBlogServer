@@ -16,8 +16,10 @@ public class AccountResponse {
     private String email;
     private String bio;
     private boolean isFollowedByLoggedInAccount;
+    private int numberOfFollowers;
+    private  int numberOfFollowing;
 
-    public AccountResponse(Account account, boolean isFollowedByLoggedInAccount) {
+    public AccountResponse(Account account, boolean isFollowedByLoggedInAccount, int numberOfFollowers, int numberOfFollowing) {
         this.id = account.getId();
         this.name = account.getName();
         this.surname = account.getSurname();
@@ -25,5 +27,7 @@ public class AccountResponse {
         this.email = account.getUser().getEmail();
         this.bio = account.getBio();
         this.isFollowedByLoggedInAccount = isFollowedByLoggedInAccount;
+        this.numberOfFollowers = numberOfFollowers;
+        this.numberOfFollowing = numberOfFollowing;
     }
 }

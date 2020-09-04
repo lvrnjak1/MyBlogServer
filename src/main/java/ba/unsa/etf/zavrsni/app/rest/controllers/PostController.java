@@ -9,6 +9,7 @@ import ba.unsa.etf.zavrsni.app.rest.requests.PostRequest;
 import ba.unsa.etf.zavrsni.app.rest.responses.AccountResponse;
 import ba.unsa.etf.zavrsni.app.rest.responses.ApiResponse;
 import ba.unsa.etf.zavrsni.app.rest.responses.PostResponse;
+import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.LikeService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class PostController {
     private final PostService postService;
     private final LikeService likeService;
     private final ControllerUtility controllerUtility;
+    private final AccountService accountService;
 
     //get post by id
     @GetMapping("/{id}")
@@ -55,7 +57,9 @@ public class PostController {
                     .body(new ApiResponse("Post doesn't exist"));
         }
         return controllerUtility.getResponseEntityFromAccount(post.getAuthor(),
-                controllerUtility.isFollowedByCurrentUser(post.getAuthor(), principal));
+                controllerUtility.isFollowedByCurrentUser(post.getAuthor(), principal),
+                accountService.getNumberOfFollowers(post.getAuthor()),
+                accountService.getNumberOfAccountsFollowedBy(post.getAuthor()));
     }
 
     //get post likes
@@ -72,7 +76,10 @@ public class PostController {
                 likeService.getAllLikesForPost(post)
                 .stream()
                 .map(Like::getAccount)
-                .map(account -> new AccountResponse(account, controllerUtility.isFollowedByCurrentUser(account, principal)))
+                .map(account -> new AccountResponse(account,
+                        controllerUtility.isFollowedByCurrentUser(account, principal),
+                        accountService.getNumberOfFollowers(account),
+                        accountService.getNumberOfAccountsFollowedBy(account)))
                 .collect(Collectors.toList())
         );
     }

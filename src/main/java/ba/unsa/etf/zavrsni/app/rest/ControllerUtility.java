@@ -26,8 +26,10 @@ public class ControllerUtility {
     }
 
     public ResponseEntity<AccountResponse> getResponseEntityFromAccount(Account account,
-                                                                         boolean isFollowedByCurrentUser){
-        return ResponseEntity.ok().body(new AccountResponse(account, isFollowedByCurrentUser));
+                                                                         boolean isFollowedByCurrentUser,
+                                                                        int numberOfFollowers, int numberOfFollowing){
+        return ResponseEntity.ok().body(new AccountResponse(account, isFollowedByCurrentUser,
+                numberOfFollowers, numberOfFollowing));
     }
 
     public boolean isFollowedByCurrentUser(Account account, Principal principal) {
