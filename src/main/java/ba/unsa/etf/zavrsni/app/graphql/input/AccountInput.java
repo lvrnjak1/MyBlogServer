@@ -16,6 +16,6 @@ public class AccountInput {
     private UserInput user;
 
     public Account castToAccount() {
-        return new Account(null, name, surname, bio, user.castToUser());
+        return new Account(name, surname, bio, user.castToUser());
     }
 }

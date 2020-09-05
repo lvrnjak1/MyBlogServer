@@ -23,6 +23,7 @@ public class Follow {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Account follower;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

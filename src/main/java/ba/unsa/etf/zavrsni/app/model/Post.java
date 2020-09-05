@@ -24,11 +24,9 @@ public class Post {
     private String title;
     @NotBlank
     private String body;
-
-    //@Temporal(TemporalType.TIMESTAMP)
     private Timestamp dateTimePosted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Account author;
