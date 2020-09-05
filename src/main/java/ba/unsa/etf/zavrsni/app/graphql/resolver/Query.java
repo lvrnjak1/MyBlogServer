@@ -1,11 +1,11 @@
 package ba.unsa.etf.zavrsni.app.graphql.resolver;
 
+import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
 import ba.unsa.etf.zavrsni.app.services.UserService;
-import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +21,13 @@ public class Query implements GraphQLQueryResolver {
     private final PostService postService;
     private final AuthContext authContext;
 
-    public Account getAccount(DataFetchingEnvironment environment){
-        return authContext.getSignedInAccount(environment);
-    }
+//    public Account getAccount(DataFetchingEnvironment environment){
+//        return authContext.getSignedInAccount(environment);
+//    }
 
-    public Account getAccountById(Long accountId){
-        return accountService.getAccountById(accountId);
-    }
+//    public Account getAccountById(Long accountId){
+//        return accountService.getAccountById(accountId);
+//    }
 
     public Account getAccountByUsername(String username){
         return accountService.getAccountByUsername(username);

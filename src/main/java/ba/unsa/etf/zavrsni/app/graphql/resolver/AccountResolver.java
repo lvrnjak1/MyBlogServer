@@ -1,12 +1,12 @@
 package ba.unsa.etf.zavrsni.app.graphql.resolver;
 
+import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Post;
 import ba.unsa.etf.zavrsni.app.model.User;
 import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.services.FollowService;
 import ba.unsa.etf.zavrsni.app.services.PostService;
-import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class AccountResolver implements GraphQLResolver<Account> {
     }
 
     public List<Post> posts(Account account){
-        return postService.getAllPostsByAccount(account);
+        return account.getPosts();//postService.getAllPostsByAccount(account);
     }
 
     public List<Account> followers(Account account){

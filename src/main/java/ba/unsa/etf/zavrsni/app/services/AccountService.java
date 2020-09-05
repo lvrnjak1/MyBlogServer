@@ -37,7 +37,7 @@ public class AccountService {
     public Account createNewAccount(SignInInput signInInput){
         checkUsernameAvailability(signInInput.getUsername());
         checkEmailUsage(signInInput.getEmail());
-        Account account = new Account(null, signInInput.getName(), signInInput.getSurname(), "",
+        Account account = new Account(signInInput.getName(), signInInput.getSurname(), "",
                 new User(null, signInInput.getUsername(), signInInput.getPassword(), signInInput.getEmail()));
         User user = account.getUser();
         userService.save(user);

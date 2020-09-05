@@ -8,6 +8,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -25,10 +27,17 @@ public class Account {
     private String surname;
     private String bio;
 
-//    @Temporal(TemporalType.DATE)
-//    private Date dateOfBirth;
-
     @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
+
+    public Account(String name, String surname, String bio, User user) {
+        this.name = name;
+        this.surname = surname;
+        this.bio = bio;
+        this.user = user;
+    }
 }
