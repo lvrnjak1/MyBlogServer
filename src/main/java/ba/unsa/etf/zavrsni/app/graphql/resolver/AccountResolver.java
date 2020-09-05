@@ -23,7 +23,7 @@ public class AccountResolver implements GraphQLResolver<Account> {
     private final AuthContext authContext;
 
     public User user(Account account){
-        System.out.println("we are here");
+        //System.out.println("we are here");
         return  account.getUser();
     }
 
