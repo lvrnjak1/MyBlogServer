@@ -20,7 +20,7 @@ public class AuthContext{
 
     public Account getSignedInAccount(DataFetchingEnvironment environment){
         GraphQLContext graphQLContext = environment.getContext();
-        HttpServletRequest request = graphQLContext.getHttpServletRequest().get();
+        //HttpServletRequest request = graphQLContext.getHttpServletRequest().get();
         //Principal principal = request.getUserPrincipal();
         //User user = (User) principal;
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

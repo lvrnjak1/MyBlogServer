@@ -1,9 +1,9 @@
 package ba.unsa.etf.zavrsni.app.graphql.resolver;
 
-import ba.unsa.etf.zavrsni.app.model.Post;
-import ba.unsa.etf.zavrsni.app.services.AccountService;
 import ba.unsa.etf.zavrsni.app.graphql.utils.AuthContext;
 import ba.unsa.etf.zavrsni.app.graphql.utils.NewPostPublisher;
+import ba.unsa.etf.zavrsni.app.model.Post;
+import ba.unsa.etf.zavrsni.app.services.AccountService;
 import com.coxautodev.graphql.tools.GraphQLSubscriptionResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +18,13 @@ public class Subscription implements GraphQLSubscriptionResolver {
     private final AuthContext authContext;
     private final AccountService accountService;
 
-
     public Publisher<Post> newPost(DataFetchingEnvironment environment){
         //signed in user iz tokena
-        //authContext.getSignedInAccount(environment);
+        //System.out.println(authContext.getSignedInAccount(environment));
         var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //hardcoded radi testiranja uvijek isti user
         return newPostPublisher
-                .getPublisher(accountService.getAccountById(10001L));
+                .getPublisher(authContext.getSignedInAccount(environment));
+        //accountService.getAccountById(10001L)
     }
 }

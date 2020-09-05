@@ -24,7 +24,10 @@ public class ApolloSubscriptionProtocolFactory extends SubscriptionProtocolFacto
             public void onMessage(HandshakeRequest request, Session session, WsSessionSubscriptions subscriptions, String text) {
                 ApolloSubscriptionProtocolHandler.OperationMessage message;
                 try {
-                    message = (ApolloSubscriptionProtocolHandler.OperationMessage)subscriptionHandlerInput.getGraphQLObjectMapper().getJacksonMapper().readValue(text, ApolloSubscriptionProtocolHandler.OperationMessage.class);
+                    message =
+                            (ApolloSubscriptionProtocolHandler.OperationMessage)subscriptionHandlerInput
+                                    .getGraphQLObjectMapper().getJacksonMapper()
+                                    .readValue(text, ApolloSubscriptionProtocolHandler.OperationMessage.class);
 
                     Map<String, Object> payload = (Map<String, Object>) message.getPayload();
                     var authToken = Optional.ofNullable(payload.get("authToken"))
@@ -32,7 +35,8 @@ public class ApolloSubscriptionProtocolFactory extends SubscriptionProtocolFacto
                             .orElse(null);
 
                     var auth = jwtProcessor.process(authToken);
-                    SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(authToken, null));
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(new UsernamePasswordAuthenticationToken(authToken, null));
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }
