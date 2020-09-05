@@ -27,7 +27,7 @@ public class Account {
     private String surname;
     private String bio;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 

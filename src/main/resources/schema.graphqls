@@ -11,8 +11,9 @@ type Query{
     getPostById(postId: ID!): Post
     populateFeed(offsetDays: Int, numberOfDays: Int): [Post]
     searchAccounts(toSearch: String): [Account]
-    accounts: [Account]
+    #accounts: [Account]
     account(accountId: ID!): Account
+    account: Account
 }
 
 type Mutation{

@@ -38,7 +38,7 @@ public class AccountResolver implements GraphQLResolver<Account> {
 
     public List<Account> following(Account account){
         //all accounts this account is following
-        return followService.getAllAccountsFollowedBy(account);
+         return followService.getAllAccountsFollowedBy(account);
     }
 
     public int numberOfFollowers(Account account){
