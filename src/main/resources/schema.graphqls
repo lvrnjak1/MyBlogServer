@@ -13,7 +13,7 @@ type Query{
     searchAccounts(toSearch: String): [Account]
     #accounts: [Account]
     account(accountId: ID!): Account
-    account: Account
+    #account: Account
 }
 
 type Mutation{
