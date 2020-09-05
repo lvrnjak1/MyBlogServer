@@ -1,20 +1,22 @@
 package ba.unsa.etf.zavrsni.app.services;
 
-import ba.unsa.etf.zavrsni.app.exceptions.InvalidCredentialsException;
-import ba.unsa.etf.zavrsni.app.exceptions.ResourceAlreadyInUse;
-import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
-import ba.unsa.etf.zavrsni.app.input.AccountInput;
-import ba.unsa.etf.zavrsni.app.input.AuthData;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.InvalidCredentialsException;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.ResourceAlreadyInUse;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.ResourceNotFoundException;
+import ba.unsa.etf.zavrsni.app.graphql.input.AccountInput;
+import ba.unsa.etf.zavrsni.app.graphql.input.AuthData;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.User;
-import ba.unsa.etf.zavrsni.app.output.SignInPayload;
+import ba.unsa.etf.zavrsni.app.graphql.output.SignInPayload;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
 import ba.unsa.etf.zavrsni.app.repositories.FollowRepository;
+import ba.unsa.etf.zavrsni.app.rest.requests.SignInInput;
 import ba.unsa.etf.zavrsni.app.specification.AccountSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +29,16 @@ public class AccountService {
         checkUsernameAvailability(accountInput.getUser().getUsername());
         checkEmailUsage(accountInput.getUser().getEmail());
         Account account = accountInput.castToAccount();
+        User user = account.getUser();
+        userService.save(user);
+        return accountRepository.save(account);
+    }
+
+    public Account createNewAccount(SignInInput signInInput){
+        checkUsernameAvailability(signInInput.getUsername());
+        checkEmailUsage(signInInput.getEmail());
+        Account account = new Account(null, signInInput.getName(), signInInput.getSurname(), "",
+                new User(null, signInInput.getUsername(), signInInput.getPassword(), signInInput.getEmail()));
         User user = account.getUser();
         userService.save(user);
         return accountRepository.save(account);
@@ -91,5 +103,9 @@ public class AccountService {
     public Account getAccountByUsername(String username) {
         return accountRepository.findByUser_Username(username)
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid username"));
+    }
+
+    public Optional<Account> getAccountByUser(User user) {
+        return accountRepository.findByUser(user);
     }
 }

@@ -1,7 +1,7 @@
 package ba.unsa.etf.zavrsni.app.services;
 
-import ba.unsa.etf.zavrsni.app.exceptions.RedundantOperationException;
-import ba.unsa.etf.zavrsni.app.exceptions.ResourceNotFoundException;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.RedundantOperationException;
+import ba.unsa.etf.zavrsni.app.graphql.exceptions.ResourceNotFoundException;
 import ba.unsa.etf.zavrsni.app.model.Account;
 import ba.unsa.etf.zavrsni.app.model.Follow;
 import ba.unsa.etf.zavrsni.app.repositories.AccountRepository;
