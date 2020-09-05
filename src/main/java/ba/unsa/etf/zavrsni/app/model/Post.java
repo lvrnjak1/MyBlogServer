@@ -26,7 +26,7 @@ public class Post {
     private String body;
     private Timestamp dateTimePosted;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Account author;
