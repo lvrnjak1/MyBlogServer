@@ -7,24 +7,26 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          lob:
-            non_contextual_creation: true
-        format_sql: true
+#        generate_statistics: true
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
+#        format_sql: true
     hibernate:
       ddl-auto: update
-    show-sql: false
+#    show-sql: false
   flyway:
     baseline-on-migrate: true
 app:
   jwtExpirationInMs: 604800000
   jwtSecret: "!z%C*F-JaNcRfUjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9y$B&E)H@McQfTjWnZq4"
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        stat: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
