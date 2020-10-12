@@ -6,3 +6,5 @@ The GraphQL API is available at https://lvrnjak-blog-server.herokuapp.com/graphq
 
 The REST API is available at https://lvrnjak-blog-server.herokuapp.com/rest-api.
 
+You can check out the source code for both client applications (developed with ReactJs) at [GraphQL client](https://github.com/lvrnjak1/MyBlogAppGraphQL) and [Rest client](https://github.com/lvrnjak1/MyBlogAppRest).
+
