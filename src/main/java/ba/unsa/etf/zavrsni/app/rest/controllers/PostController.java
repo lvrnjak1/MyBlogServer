@@ -32,7 +32,6 @@ public class PostController {
     private final ControllerUtility controllerUtility;
     private final AccountService accountService;
 
-    //get post by id
     @GetMapping("/{id}")
     public ResponseEntity<?> getPostById(@PathVariable Long id, Principal principal){
         Post post = null;
@@ -46,7 +45,6 @@ public class PostController {
         return controllerUtility.getResponseEntityFromPost(post, likedByCurrentUser, likeService.getNumberOfLikes(post));
     }
 
-    //get post author
     @GetMapping("/{id}/author")
     public ResponseEntity<?> getPostAuthor(@PathVariable Long id, Principal principal){
         Post post = null;
@@ -62,7 +60,6 @@ public class PostController {
                 accountService.getNumberOfAccountsFollowedBy(post.getAuthor()));
     }
 
-    //get post likes
     @GetMapping("/{id}/likes")
     public ResponseEntity<?> getPostLikes(@PathVariable Long id, Principal principal){
         Post post = null;
@@ -84,7 +81,6 @@ public class PostController {
         );
     }
 
-    //add post
     @PostMapping
     public ResponseEntity<?> addPost(@Valid @RequestBody PostRequest postRequest, Principal principal){
         Post post = postService.addPost(
@@ -95,7 +91,6 @@ public class PostController {
         return controllerUtility.getResponseEntityFromPost(post, false, likeService.getNumberOfLikes(post));
     }
 
-    //edit post
     @PutMapping("/{id}")
     public ResponseEntity<?> editPost(@PathVariable Long id,
                                                 @Valid @RequestBody EditPostRequest postRequest,
@@ -116,7 +111,6 @@ public class PostController {
                         likeService.getNumberOfLikes(post));
     }
 
-    //delete post
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePost(@PathVariable Long id, Principal principal){
         try{
@@ -129,7 +123,6 @@ public class PostController {
         return ResponseEntity.ok().body(new ApiResponse("Successfully deleted post"));
     }
 
-    //toggle like
     @PutMapping("/{id}/like")
     public ResponseEntity<?> toggleLike(@PathVariable Long id, Principal principal){
         try {
@@ -141,7 +134,6 @@ public class PostController {
         return ResponseEntity.ok().body(new ApiResponse("Like successfully toggled"));
     }
 
-    //populateFeed
     @GetMapping
     public ResponseEntity<?> populateFeed(@RequestParam Integer offsetDays,
                                            @RequestParam Integer numberOfDays,

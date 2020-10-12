@@ -23,12 +23,11 @@ public class AccountResolver implements GraphQLResolver<Account> {
     private final AuthContext authContext;
 
     public User user(Account account){
-        //System.out.println("we are here");
         return  account.getUser();
     }
 
     public List<Post> posts(Account account){
-        return account.getPosts();//postService.getAllPostsByAccount(account);
+        return account.getPosts();
     }
 
     public List<Account> followers(Account account){
@@ -50,7 +49,6 @@ public class AccountResolver implements GraphQLResolver<Account> {
     }
 
     public boolean isFollowedByLoggedInAccount(Account account, DataFetchingEnvironment environment){
-        //Account currentAccount = authContext.getSignedInAccount(environment);
         if (account.getUser().getUsername().equals(authContext.getSignedInUsername(environment))) {
             return false;
         }

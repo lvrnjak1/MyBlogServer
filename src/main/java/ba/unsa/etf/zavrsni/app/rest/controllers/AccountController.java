@@ -29,7 +29,6 @@ public class AccountController {
     private final ControllerUtility controllerUtility;
     private final LikeService likeService;
 
-    //get account by id
     @GetMapping("/{id}")
     public ResponseEntity<?> getAccountById(@PathVariable Long id, Principal principal){
         Account account = null;
@@ -54,7 +53,6 @@ public class AccountController {
                         accountService.getNumberOfAccountsFollowedBy(account)));
     }
 
-    //get account by username
     @GetMapping
     public ResponseEntity<?> getAccountByUsername(@RequestParam String username, Principal principal){
         Account account = null;
@@ -71,7 +69,6 @@ public class AccountController {
                 accountService.getNumberOfAccountsFollowedBy(account)));
     }
 
-    //get followers
     @GetMapping("/{id}/followers")
     public ResponseEntity<?> getFollowersForAccount(@PathVariable Long id, Principal principal){
         Account account = null;
@@ -107,7 +104,6 @@ public class AccountController {
                 );
     }
 
-    //get following
     @GetMapping("/{id}/following")
     public ResponseEntity<?> getFollowingForAccount(@PathVariable Long id, Principal principal){
         Account account = null;
@@ -141,7 +137,6 @@ public class AccountController {
                 );
     }
 
-    //get posts
     @GetMapping("/{id}/posts")
     public ResponseEntity<?> getPostsForAccount(@PathVariable Long id, Principal principal){
         Account account = null;
@@ -172,7 +167,6 @@ public class AccountController {
         );
     }
 
-    //toggle follow
     @PutMapping("/{id}/follow")
     public ResponseEntity<?> toggleFollow(@PathVariable Long id, Principal principal){
         Account account = null;
@@ -187,7 +181,6 @@ public class AccountController {
         return ResponseEntity.ok().body(new ApiResponse("Follow toggled successfully"));
     }
 
-    //search
     @GetMapping("/search")
     public ResponseEntity<?> search(@RequestParam String query, Principal principal){
         return ResponseEntity.ok().body(

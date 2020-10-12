@@ -31,7 +31,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(exception.getMessage()));
         }
 
-        //return new SignInPayload(token, accountService.getAccountByUsername(authData.getUsername()));
         return ResponseEntity.ok()
                 .body(new LoginPayload(token, accountService.getAccountByUsername(loginInput.getUsername()).getId()));
     }

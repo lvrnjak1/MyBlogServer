@@ -5,15 +5,11 @@ schema {
 }
 
 type Query{
-    #getAccount: Account
-    #getAccountById(accountId: ID!): Account
     getAccountByUsername(username: String!): Account
     getPostById(postId: ID!): Post
     populateFeed(offsetDays: Int, numberOfDays: Int): [Post]
     searchAccounts(toSearch: String): [Account]
-    #accounts: [Account]
     account(accountId: ID!): Account
-    #account: Account
 }
 
 type Mutation{
@@ -31,7 +27,6 @@ type Subscription{
 }
 
 #Custom types
-
 type User{
     id: ID!
     username: String!

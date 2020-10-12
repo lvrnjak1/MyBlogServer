@@ -21,18 +21,6 @@ public class Query implements GraphQLQueryResolver {
     private final PostService postService;
     private final AuthContext authContext;
 
-//    public Account getAccount(DataFetchingEnvironment environment){
-//        return authContext.getSignedInAccount(environment);
-//    }
-
-//    public Account getAccountById(Long accountId){
-//        return accountService.getAccountById(accountId);
-//    }
-
-//    public Account getAccountByUsername(String username){
-//        return accountService.getAccountByUsername(username);
-//    }
-
     public Post getPostById(Long postId){
         return postService.findById(postId);
     }

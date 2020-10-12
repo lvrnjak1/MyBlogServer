@@ -56,6 +56,5 @@ public class Mutation implements GraphQLMutationResolver {
     public SignInPayload signIn(AuthData authData){
         String token = authService.authenticate(authData.getUsername(), authData.getPassword());
         return new SignInPayload(token, accountService.getAccountByUsername(authData.getUsername()));
-       // return accountService.signInUser(authData);
     }
 }

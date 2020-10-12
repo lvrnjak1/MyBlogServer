@@ -41,7 +41,6 @@ public class PostResolver implements GraphQLResolver<Post> {
     public boolean likedByTheCurrentUser(Post post, DataFetchingEnvironment environment){
         Account currentUser;
         try {
-            //currentUser = accountService.getAccountById(10001L);
             currentUser = authContext.getSignedInAccount(environment);
             if(currentUser == null){
                 currentUser = accountService.getAccountById(10001L);
